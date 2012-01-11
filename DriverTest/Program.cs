@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SimpleDriver;
 using OpenQA.Selenium;
+using SimpleBrowser.WebDriver;
 
 namespace DriverTest
 {

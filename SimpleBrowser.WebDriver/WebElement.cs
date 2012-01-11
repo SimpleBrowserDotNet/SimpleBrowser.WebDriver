@@ -11,7 +11,7 @@ using System.Xml.XPath;
 using System.Drawing;
 using OpenQA.Selenium.Interactions.Internal;
 
-namespace SimpleBrowserWebDriver
+namespace SimpleBrowser.WebDriver
 {
     public class WebElement : IWebElement, ISearchContext, IFindsByLinkText, IFindsById, IFindsByName, IFindsByTagName, IFindsByClassName, IFindsByXPath, IFindsByPartialLinkText, IFindsByCssSelector
     {

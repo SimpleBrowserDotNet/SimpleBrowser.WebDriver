@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
-using SimpleBrowserWebDriver;
+using SimpleBrowser.WebDriver;
 using SimpleBrowser;
 using System.Collections.ObjectModel;
 
-namespace SimpleDriver
+namespace SimpleBrowser.WebDriver
 {
     public class SimpleBrowserDriver : IWebDriver
     {
