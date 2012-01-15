@@ -15,8 +15,8 @@ namespace SimpleBrowser.WebDriver
 {
     public class WebElement : IWebElement, ISearchContext, IFindsByLinkText, IFindsById, IFindsByName, IFindsByTagName, IFindsByClassName, IFindsByXPath, IFindsByPartialLinkText, IFindsByCssSelector
     {
-        HtmlResult _my;
-        public WebElement(HtmlResult about)
+        IHtmlResult _my;
+        public WebElement(IHtmlResult about)
         {
             _my = about;
             if (_my.TotalElementsFound != 1) throw new InvalidSelectorException("Should return only one element");

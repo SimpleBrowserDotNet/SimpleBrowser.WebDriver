@@ -12,10 +12,14 @@ namespace SimpleBrowser.WebDriver
 {
     public class SimpleBrowserDriver : IWebDriver
     {
-        Browser _my ;
+        IBrowser _my ;
         public SimpleBrowserDriver()
         {
-            _my = new Browser();
+            _my = new BrowserWrapper();
+        }
+        public SimpleBrowserDriver(IBrowser browser)
+        {
+            _my = browser;
         }
         #region IWebDriver Members
 
@@ -87,7 +91,7 @@ namespace SimpleBrowser.WebDriver
             return by.FindElement(ctx);
         }
 
-        private ISearchContext CreateSearchContext(Browser my)
+        private ISearchContext CreateSearchContext(IBrowser my)
         {
             ISearchContext ctx = new WebElement(my.Find("html", new object()));
             return ctx;
