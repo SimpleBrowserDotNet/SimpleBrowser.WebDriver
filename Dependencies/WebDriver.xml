@@ -811,6 +811,18 @@
             <remarks>"Currently-focused" is defined as the browser window having the window handle
             returned when IWebDriver.CurrentWindowHandle is called.</remarks>
         </member>
+        <member name="T:OpenQA.Selenium.IRotatable">
+            <summary>
+            Represents rotation of the browser view for orientation-sensitive devices. 
+            When using this with a real device, the device should not be moved so that 
+            the built-in sensors do not interfere. 
+            </summary>
+        </member>
+        <member name="P:OpenQA.Selenium.IRotatable.Orientation">
+            <summary>
+            Gets or sets the screen orientation of the browser on the device.
+            </summary>
+        </member>
         <member name="T:OpenQA.Selenium.ISearchContext">
             <summary>
             Defines the interface used to search for elements.
@@ -1898,6 +1910,21 @@
             Gets or sets the value of the proxy for the SSL protocol.
             </summary>
         </member>
+        <member name="T:OpenQA.Selenium.ScreenOrientation">
+            <summary>
+            Represents possible screen orientations. 
+            </summary>
+        </member>
+        <member name="F:OpenQA.Selenium.ScreenOrientation.Portrait">
+            <summary>
+            Represents a portrait mode, where the screen is vertical.
+            </summary>
+        </member>
+        <member name="F:OpenQA.Selenium.ScreenOrientation.Landscape">
+            <summary>
+            Represents Landscape mode, where the screen is horizontal.
+            </summary>
+        </member>
         <member name="T:OpenQA.Selenium.Screenshot">
             <summary>
             Represents an image of the page currently loaded in the browser.
@@ -2943,6 +2970,11 @@
             Gets a <see cref="T:OpenQA.Selenium.Screenshot"/> object representing the image of the page on the screen.
             </summary>
             <returns>A <see cref="T:OpenQA.Selenium.Screenshot"/> object containing the image.</returns>
+        </member>
+        <member name="P:OpenQA.Selenium.Android.AndroidDriver.Orientation">
+            <summary>
+            Gets or sets the screen orientation of the browser on the device.
+            </summary>
         </member>
         <member name="T:OpenQA.Selenium.Chrome.ChromeCommandExecutor">
             <summary>
@@ -5484,7 +5516,13 @@
             <summary>
             Method to return a new DesiredCapabilities using defaults
             </summary>
-            <returns>New instance of DesiredCapabilities for use with IPhone</returns>
+            <returns>New instance of DesiredCapabilities for use with iPhone</returns>
+        </member>
+        <member name="M:OpenQA.Selenium.Remote.DesiredCapabilities.IPad">
+            <summary>
+            Method to return a new DesiredCapabilities using defaults
+            </summary>
+            <returns>New instance of DesiredCapabilities for use with iPad</returns>
         </member>
         <member name="M:OpenQA.Selenium.Remote.DesiredCapabilities.Chrome">
             <summary>
@@ -5580,9 +5618,19 @@
             Represents the Define Driver Mapping command
             </summary>
         </member>
+        <member name="F:OpenQA.Selenium.Remote.DriverCommand.Status">
+            <summary>
+            Represents the Status command.
+            </summary>
+        </member>
         <member name="F:OpenQA.Selenium.Remote.DriverCommand.NewSession">
             <summary>
             Represents a New Session command
+            </summary>
+        </member>
+        <member name="F:OpenQA.Selenium.Remote.DriverCommand.GetSessionList">
+            <summary>
+            Represents the Get Session List command
             </summary>
         </member>
         <member name="F:OpenQA.Selenium.Remote.DriverCommand.GetSessionCapabilities">
@@ -5675,11 +5723,6 @@
             Represents clickelements command
             </summary>
         </member>
-        <member name="F:OpenQA.Selenium.Remote.DriverCommand.HoverOverElement">
-            <summary>
-            Represents hoverelements command
-            </summary>
-        </member>
         <member name="F:OpenQA.Selenium.Remote.DriverCommand.SendKeysToElement">
             <summary>
             Represents SendKeysToElements command
@@ -5688,11 +5731,6 @@
         <member name="F:OpenQA.Selenium.Remote.DriverCommand.SubmitElement">
             <summary>
             Represents SubmitElement command
-            </summary>
-        </member>
-        <member name="F:OpenQA.Selenium.Remote.DriverCommand.ToggleElement">
-            <summary>
-            Represents TogleElements command
             </summary>
         </member>
         <member name="F:OpenQA.Selenium.Remote.DriverCommand.GetCurrentWindowHandle">
@@ -5745,49 +5783,14 @@
             Represents ExecuteAsyncScript command
             </summary>
         </member>
-        <member name="F:OpenQA.Selenium.Remote.DriverCommand.GetSpeed">
-            <summary>
-            Represents GetSpeed command
-            </summary>
-        </member>
-        <member name="F:OpenQA.Selenium.Remote.DriverCommand.SetSpeed">
-            <summary>
-            Represents SetSpeed command
-            </summary>
-        </member>
-        <member name="F:OpenQA.Selenium.Remote.DriverCommand.SetBrowserVisible">
-            <summary>
-            Represents SetBrowserVisible command
-            </summary>
-        </member>
-        <member name="F:OpenQA.Selenium.Remote.DriverCommand.IsBrowserVisible">
-            <summary>
-            Represents IsBrowserVisible command
-            </summary>
-        </member>
         <member name="F:OpenQA.Selenium.Remote.DriverCommand.GetElementText">
             <summary>
             Represents GetElementText command
             </summary>
         </member>
-        <member name="F:OpenQA.Selenium.Remote.DriverCommand.GetElementValue">
-            <summary>
-            Represents GetElementValue command
-            </summary>
-        </member>
         <member name="F:OpenQA.Selenium.Remote.DriverCommand.GetElementTagName">
             <summary>
             Represents GetElementTagName command
-            </summary>
-        </member>
-        <member name="F:OpenQA.Selenium.Remote.DriverCommand.SetElementSelected">
-            <summary>
-            Represents SetElementSelected command
-            </summary>
-        </member>
-        <member name="F:OpenQA.Selenium.Remote.DriverCommand.DragElement">
-            <summary>
-            Represents DragElement command
             </summary>
         </member>
         <member name="F:OpenQA.Selenium.Remote.DriverCommand.IsElementSelected">
@@ -5838,6 +5841,16 @@
         <member name="F:OpenQA.Selenium.Remote.DriverCommand.Screenshot">
             <summary>
             Represents Screenshot command
+            </summary>
+        </member>
+        <member name="F:OpenQA.Selenium.Remote.DriverCommand.GetOrientation">
+            <summary>
+            Represents GetOrientation command
+            </summary>
+        </member>
+        <member name="F:OpenQA.Selenium.Remote.DriverCommand.SetOrientation">
+            <summary>
+            Represents SetOrientation command
             </summary>
         </member>
         <member name="F:OpenQA.Selenium.Remote.DriverCommand.GetWindowSize">

@@ -883,6 +883,158 @@
             </summary>
             <returns>A unique hash code for this object.</returns>
         </member>
+        <member name="T:OpenQA.Selenium.Support.UI.DefaultWait`1">
+            <summary>
+            An implementation of the <see cref="T:OpenQA.Selenium.Support.UI.IWait`1"/> interface that may have its timeout and polling interval
+            configured on the fly.
+            </summary>
+            <typeparam name="T">The type of object on which the wait it to be applied.</typeparam>
+        </member>
+        <member name="T:OpenQA.Selenium.Support.UI.IWait`1">
+            <summary>
+            Interface describing a class designed to wait for a condition.
+            </summary>
+            <typeparam name="TSource">The type of object used to detect the condition.</typeparam>
+        </member>
+        <member name="M:OpenQA.Selenium.Support.UI.IWait`1.IgnoreExceptionTypes(System.Type[])">
+            <summary>
+            Configures this instance to ignore specific types of exceptions while waiting for a condition.
+            Any exceptions not whitelisted will be allowed to propagate, terminating the wait.
+            </summary>
+            <param name="exceptionTypes">The types of exceptions to ignore.</param>
+        </member>
+        <member name="M:OpenQA.Selenium.Support.UI.IWait`1.Until``1(System.Func{`0,``0})">
+            <summary>
+            Waits until a condition is true or times out.
+            </summary>
+            <typeparam name="TResult">The type of result to expect from the condition.</typeparam>
+            <param name="condition">A delegate taking a TSource as its parameter, and returning a TResult.</param>
+            <returns>If TResult is a boolean, the method returns <see langword="true"/> when the condition is true, and <see langword="false"/> otherwise.
+            If TResult is an object, the method returns the object when the condition evaluates to a value other than <see langword="null"/>.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when TResult is not boolean or an object type.</exception>
+        </member>
+        <member name="P:OpenQA.Selenium.Support.UI.IWait`1.Timeout">
+            <summary>
+            Gets or sets how long to wait for the evaluated condition to be true.
+            </summary>
+        </member>
+        <member name="P:OpenQA.Selenium.Support.UI.IWait`1.PollingInterval">
+            <summary>
+            Gets or sets how often the condition should be evaluated.
+            </summary>
+        </member>
+        <member name="P:OpenQA.Selenium.Support.UI.IWait`1.Message">
+            <summary>
+            Gets or sets the message to be displayed when time expires.
+            </summary>
+        </member>
+        <member name="M:OpenQA.Selenium.Support.UI.DefaultWait`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:OpenQA.Selenium.Support.UI.DefaultWait`1"/> class.
+            </summary>
+            <param name="input">The input value to pass to the evaluated conditions.</param>
+        </member>
+        <member name="M:OpenQA.Selenium.Support.UI.DefaultWait`1.#ctor(`0,OpenQA.Selenium.Support.UI.IClock)">
+            <summary>
+            Initializes a new instance of the <see cref="T:OpenQA.Selenium.Support.UI.DefaultWait`1"/> class.
+            </summary>
+            <param name="input">The input value to pass to the evaluated conditions.</param>
+            <param name="clock">The clock to use when measuring the timeout.</param>
+        </member>
+        <member name="M:OpenQA.Selenium.Support.UI.DefaultWait`1.IgnoreExceptionTypes(System.Type[])">
+            <summary>
+            Configures this instance to ignore specific types of exceptions while waiting for a condition.
+            Any exceptions not whitelisted will be allowed to propagate, terminating the wait.
+            </summary>
+            <param name="exceptionTypes">The types of exceptions to ignore.</param>
+        </member>
+        <member name="M:OpenQA.Selenium.Support.UI.DefaultWait`1.Until``1(System.Func{`0,``0})">
+            <summary>
+            Repeatedly applies this instance's input value to the given function until one of the following
+            occurs:
+            <para>
+            <list type="bullet">
+            <item>the function returns neither null nor false</item>
+            <item>the function throws an unignored exception</item>
+            <item>the timeout expires</item>
+            </list>
+            </para>
+            </summary>
+            <typeparam name="TResult">The delegate's expected return type.</typeparam>
+            <param name="condition">A delegate taking an object of type T as its parameter, and returning a TResult.</param>
+            <returns>The delegate's return value.</returns>
+        </member>
+        <member name="M:OpenQA.Selenium.Support.UI.DefaultWait`1.ThrowTimeoutException(System.String,System.Exception)">
+            <summary>
+            Throws a <see cref="T:System.TimeoutException"/> with the given message.
+            </summary>
+            <param name="exceptionMessage">The message of the exception.</param>
+            <param name="lastException">The last exception thrown by the condition.</param>
+            <remarks>This method may be overridden to throw an exception that is
+            idiomatic for a particular test infrastructure.</remarks>
+        </member>
+        <member name="P:OpenQA.Selenium.Support.UI.DefaultWait`1.Timeout">
+            <summary>
+            Gets or sets how long to wait for the evaluated condition to be true. The default timeout is 500 milliseconds.
+            </summary>
+        </member>
+        <member name="P:OpenQA.Selenium.Support.UI.DefaultWait`1.PollingInterval">
+            <summary>
+            Gets or sets how often the condition should be evaluated. The default timeout is 500 milliseconds.
+            </summary>
+        </member>
+        <member name="P:OpenQA.Selenium.Support.UI.DefaultWait`1.Message">
+            <summary>
+            Gets or sets the message to be displayed when time expires.
+            </summary>
+        </member>
+        <member name="T:OpenQA.Selenium.Support.UI.ExpectedConditions">
+            <summary>
+            Supplies a set of common conditions that can be waited for using <see cref="T:OpenQA.Selenium.Support.UI.WebDriverWait"/>.
+            </summary>
+            <example>
+            <code>
+            IWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3))
+            IWebElement element = wait.Until(ExpectedConditions.ElementExists(By.Id("foo")));
+            </code>
+            </example>
+        </member>
+        <member name="M:OpenQA.Selenium.Support.UI.ExpectedConditions.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:OpenQA.Selenium.Support.UI.ExpectedConditions"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:OpenQA.Selenium.Support.UI.ExpectedConditions.TitleIs(System.String)">
+            <summary>
+            An expectation for checking the title of a page.
+            </summary>
+            <param name="title">The expected title, which must be an exact match.</param>
+            <returns><see langword="true"/> when the title matches; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:OpenQA.Selenium.Support.UI.ExpectedConditions.TitleContains(System.String)">
+            <summary>
+            An expectation for checking that the title of a page contains a case-sensitive substring.
+            </summary>
+            <param name="title">The fragment of title expected.</param>
+            <returns><see langword="true"/> when the title matches; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:OpenQA.Selenium.Support.UI.ExpectedConditions.ElementExists(OpenQA.Selenium.By)">
+            <summary>
+            An expectation for checking that an element is present on the DOM of a
+            page. This does not necessarily mean that the element is visible.
+            </summary>
+            <param name="locator">The locator used to find the element.</param>
+            <returns>The <see cref="T:OpenQA.Selenium.IWebElement"/> once it is located.</returns>
+        </member>
+        <member name="M:OpenQA.Selenium.Support.UI.ExpectedConditions.ElementIsVisible(OpenQA.Selenium.By)">
+            <summary>
+            An expectation for checking that an element is present on the DOM of a page
+            and visible. Visibility means that the element is not only displayed but
+            also has a height and width that is greater than 0.
+            </summary>
+            <param name="locator">The locator used to find the element.</param>
+            <returns>The <see cref="T:OpenQA.Selenium.IWebElement"/> once it is located and visible.</returns>
+        </member>
         <member name="T:OpenQA.Selenium.Support.UI.IClock">
             <summary>
             An interface describing time handling functions for timeouts.
@@ -907,27 +1059,21 @@
             Gets the current date and time values.
             </summary>
         </member>
-        <member name="T:OpenQA.Selenium.Support.UI.IWait`1">
-            <summary>
-            Interface describing a class designed to wait for a condition.
-            </summary>
-            <typeparam name="TSource">The type of object used to detect the condition.</typeparam>
-        </member>
-        <member name="M:OpenQA.Selenium.Support.UI.IWait`1.Until``1(System.Func{`0,``0})">
-            <summary>
-            Waits until a condition is true or times out.
-            </summary>
-            <typeparam name="TResult">The type of result to expect from the condition.</typeparam>
-            <param name="condition">A delegate taking a TSource as its parameter, and returning a TResult.</param>
-            <returns>If TResult is a boolean, the method returns <see langword="true"/> when the condition is true, and <see langword="false"/> otherwise.
-            If TResult is an object, the method returns the object when the condition evaluates to a value other than <see langword="null"/>.</returns>
-            <exception cref="T:System.ArgumentException">Thrown when TResult is not boolean or an object type.</exception>
-        </member>
         <member name="T:OpenQA.Selenium.Support.UI.PopupWindowFinder">
             <summary>
             Provides a mechanism by which the window handle of an invoked
             popup browser window may be determined.
             </summary>
+            <example>
+            <code>
+            // Store the current window handle so you can switch back to the
+            // original window when you close the popup.
+            string current = driver.CurrentWindowHandle;
+            PopupWindowFinder finder = new PopupWindowFinder(driver);
+            string newHandle = finder.Click(driver.FindElement(By.LinkText("Open new window")));
+            driver.SwitchTo.Window(newHandle);
+            </code>
+            </example>
         </member>
         <member name="M:OpenQA.Selenium.Support.UI.PopupWindowFinder.#ctor(OpenQA.Selenium.IWebDriver)">
             <summary>
@@ -1159,8 +1305,10 @@
             Provides the ability to wait for an arbitrary condition during test execution.
             </summary>
             <example>
+            <code>
             IWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3))
-            IWebElement element = wait.until(driver => driver.FindElement(By.Name("q")));
+            IWebElement element = wait.Until(driver => driver.FindElement(By.Name("q")));
+            </code>
             </example>
         </member>
         <member name="M:OpenQA.Selenium.Support.UI.WebDriverWait.#ctor(OpenQA.Selenium.IWebDriver,System.TimeSpan)">
@@ -1178,23 +1326,6 @@
             <param name="driver">The WebDriver instance used to wait.</param>
             <param name="timeout">The timeout value indicating how long to wait for the condition.</param>
             <param name="sleepInterval">A <see cref="T:System.TimeSpan"/> value indiciating how often to check for the condition to be true.</param>
-        </member>
-        <member name="M:OpenQA.Selenium.Support.UI.WebDriverWait.Until``1(System.Func{OpenQA.Selenium.IWebDriver,``0})">
-            <summary>
-            Waits until a condition is true or times out.
-            </summary>
-            <typeparam name="TResult">The type of result to expect from the condition.</typeparam>
-            <param name="condition">A delegate taking an <see cref="T:OpenQA.Selenium.IWebDriver"/> as its parameter, and returning a TResult.</param>
-            <returns>If TResult is a boolean, the method returns <see langword="true"/> when the condition is true, and <see langword="false"/> otherwise.
-            If TResult is an object, the method returns the object when the condition evaluates to a value other than <see langword="null"/>.</returns>
-            <exception cref="T:System.ArgumentException">Thrown when TResult is not boolean or an object type.</exception>
-        </member>
-        <member name="M:OpenQA.Selenium.Support.UI.WebDriverWait.ThrowTimeoutException(System.String,System.Exception)">
-            <summary>
-            Throws a <see cref="T:System.TimeoutException"/> with the given message.
-            </summary>
-            <param name="message">The message of the exception.</param>
-            <param name="lastException">The last exception thrown by the condition.</param>
         </member>
     </members>
 </doc>
