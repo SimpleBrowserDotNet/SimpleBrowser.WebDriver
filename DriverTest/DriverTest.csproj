@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\Dependencies\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.5.3.9345, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\nunit.framework.dll</HintPath>
@@ -46,8 +49,12 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WebDriver">
-      <HintPath>..\..\SpecflowTest\ext\webdriver\WebDriver.dll</HintPath>
+    <Reference Include="WebDriver, Version=2.13.0.0, Culture=neutral, PublicKeyToken=1c2bd1631853048f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\WebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver.Support">
+      <HintPath>..\Dependencies\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +63,10 @@
     <Compile Include="Searching.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SimpleBrowser\SimpleBrowser\SimpleBrowser.csproj">
+      <Project>{041EB5E9-DE14-41BA-B59D-F77612578CD6}</Project>
+      <Name>SimpleBrowser</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimpleBrowser.WebDriver\SimpleBrowser.WebDriver.csproj">
       <Project>{F456D22E-4D9B-46FB-92D2-A7EFD4540E06}</Project>
       <Name>SimpleBrowser.WebDriver</Name>
@@ -63,6 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GitHub.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

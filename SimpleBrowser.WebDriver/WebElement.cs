@@ -60,7 +60,13 @@ namespace SimpleBrowser.WebDriver
 
         public bool Selected
         {
-            get { throw new NotImplementedException(); }
+            get {
+                if (_my.XElement.Name == "option")
+                {
+                    return _my.XElement.GetAttribute("selected") != null;
+                }
+                return false;
+            }
         }
 
         public void SendKeys(string text)
@@ -219,7 +225,7 @@ namespace SimpleBrowser.WebDriver
 
         public ReadOnlyCollection<IWebElement> FindElementsByCssSelector(string cssSelector)
         {
-            var results = _my.Select(cssSelector).Select(r => new WebElement(r));
+            var results = _my.Select(cssSelector).Select(r => new WebElement(r)).ToList();
             return new ReadOnlyCollection<IWebElement>(results.Cast<IWebElement>().ToList());
         }
 

@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBrowser.WebDriver", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverTest", "DriverTest\DriverTest.csproj", "{6EFD131D-CDD3-444F-8F49-26AD4730B5A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBrowser", "..\SimpleBrowser\SimpleBrowser\SimpleBrowser.csproj", "{041EB5E9-DE14-41BA-B59D-F77612578CD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{6EFD131D-CDD3-444F-8F49-26AD4730B5A3}.Release|Mixed Platforms.Build.0 = Release|x86
 		{6EFD131D-CDD3-444F-8F49-26AD4730B5A3}.Release|x86.ActiveCfg = Release|x86
 		{6EFD131D-CDD3-444F-8F49-26AD4730B5A3}.Release|x86.Build.0 = Release|x86
+		{041EB5E9-DE14-41BA-B59D-F77612578CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{041EB5E9-DE14-41BA-B59D-F77612578CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{041EB5E9-DE14-41BA-B59D-F77612578CD6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{041EB5E9-DE14-41BA-B59D-F77612578CD6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{041EB5E9-DE14-41BA-B59D-F77612578CD6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{041EB5E9-DE14-41BA-B59D-F77612578CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{041EB5E9-DE14-41BA-B59D-F77612578CD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{041EB5E9-DE14-41BA-B59D-F77612578CD6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{041EB5E9-DE14-41BA-B59D-F77612578CD6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{041EB5E9-DE14-41BA-B59D-F77612578CD6}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

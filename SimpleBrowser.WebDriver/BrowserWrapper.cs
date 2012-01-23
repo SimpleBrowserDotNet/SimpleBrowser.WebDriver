@@ -5,13 +5,16 @@ using System.Text;
 
 namespace SimpleBrowser.WebDriver
 {
-    class BrowserWrapper : IBrowser
+    public class BrowserWrapper : IBrowser
     {
         Browser _my;
         public BrowserWrapper()
         {
             _my = new Browser();
-
+        }
+        public BrowserWrapper(Browser b)
+        {
+            _my = b;
         }
 
         #region IBrowser Members
