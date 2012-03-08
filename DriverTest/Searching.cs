@@ -54,7 +54,64 @@ namespace DriverTest
 			Assert.That(box.AllSelectedOptions.Count == 3);
 
 		}
-        [Test]
+		[Test]
+		public void UsingCheckboxes()
+		{
+			Browser b = new Browser();
+			b.SetContent(GetFromResources("DriverTest.GitHub.htm"));
+			IWebDriver driver = new SimpleBrowserDriver(new BrowserWrapper(b));
+			var checkbox1 = driver.FindElement(By.CssSelector(".cb-container #first-checkbox"));
+			var checkbox2 = driver.FindElement(By.CssSelector(".cb-container #second-checkbox"));
+			Assert.That(checkbox1.Selected, "Checkbox 1 should be selected");
+			Assert.That(!checkbox2.Selected, "Checkbox 2 should not be selected");
+			checkbox2.Click();
+			Assert.That(checkbox1.Selected, "Checkbox 1 should still be selected");
+			Assert.That(checkbox2.Selected, "Checkbox 2 should be selected");
+			var checkbox1Label = driver.FindElement(By.CssSelector("label[for=first-checkbox]"));
+			Assert.NotNull(checkbox1Label, "Label not found");
+			checkbox1Label.Click();
+			Assert.That(checkbox2.Selected, "Checkbox 2 should still be selected");
+			Assert.That(!checkbox1.Selected, "Checkbox 1 should be not selected");
+			
+		}
+		[Test]
+		public void UsingRadioButtons()
+		{
+			Browser b = new Browser();
+			b.SetContent(GetFromResources("DriverTest.GitHub.htm"));
+			IWebDriver driver = new SimpleBrowserDriver(new BrowserWrapper(b));
+			var radio1 = driver.FindElement(By.CssSelector(".rb-container #first-radio"));
+			var radio2 = driver.FindElement(By.CssSelector(".rb-container #second-radio"));
+			var radio1Label = driver.FindElement(By.CssSelector("label[for=first-radio]"));
+			Assert.That(radio1.Selected, "Radiobutton 1 should be selected");
+			Assert.That(!radio2.Selected, "Radiobutton 2 should not be selected");
+			radio2.Click();
+			Assert.That(!radio1.Selected, "Radiobutton 1 should not be selected");
+			Assert.That(radio2.Selected, "Radiobutton 2 should be selected");
+			Assert.NotNull(radio1Label, "Label not found");
+			radio1Label.Click();
+			Assert.That(radio1.Selected, "Radiobutton 1 should be selected");
+			Assert.That(!radio2.Selected, "Radiobutton 2 should be not selected");
+
+		}
+		[Test]
+		public void UsingTextboxes()
+		{
+			Browser b = new Browser();
+			b.SetContent(GetFromResources("DriverTest.GitHub.htm"));
+			IWebDriver driver = new SimpleBrowserDriver(new BrowserWrapper(b));
+			var textbox = driver.FindElement(By.CssSelector("#your-repos-filter"));
+			Assert.NotNull(textbox, "Couldn't find textbox");
+			Assert.That(textbox.Text == String.Empty, "Textbox without a value attribute should have empty text");
+			textbox.SendKeys("test text");
+			Assert.That(textbox.Text == "test text", "Textbox did not pick up sent keys");
+			textbox.SendKeys(" more");
+			Assert.That(textbox.Text == "test text more", "Textbox did not append second text");
+			textbox.Clear();
+			Assert.That(textbox.Text == String.Empty, "Textbox after Clear should have empty text");
+
+		}
+		[Test]
         public void SearchingInKnownDocument()
         {
             Browser b = new Browser();

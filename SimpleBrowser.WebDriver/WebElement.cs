@@ -25,7 +25,7 @@ namespace SimpleBrowser.WebDriver
 
         public void Clear()
         {
-            throw new NotImplementedException();
+			_my.Value = "";
         }
 
         public void Click()
@@ -65,13 +65,17 @@ namespace SimpleBrowser.WebDriver
                 {
                     return _my.XElement.GetAttribute("selected") != null;
                 }
-                return false;
+				if (_my.XElement.Name == "input")
+				{
+					return _my.XElement.GetAttribute("checked") != null;
+				}
+				return false;
             }
         }
 
         public void SendKeys(string text)
         {
-            _my.Value = text;
+            _my.Value += text;
         }
 
         public Size Size
