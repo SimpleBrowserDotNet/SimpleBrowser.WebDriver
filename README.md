@@ -1,5 +1,5 @@
-SimpleBrowser.WebDriver
------------------------
+SimpleBrowser.WebDriver - Headless WebDriver for .NET
+-----------------------------------------------------
 
 ###An implementation of a WebDriver that uses SimpleBrowser as its browser. 
 
