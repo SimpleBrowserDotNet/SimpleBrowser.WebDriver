@@ -58,6 +58,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Searching.cs" />
@@ -77,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GitHub.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SimpleForm.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
