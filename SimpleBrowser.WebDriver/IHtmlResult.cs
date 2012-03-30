@@ -15,7 +15,8 @@ namespace SimpleBrowser.WebDriver
 
         void Click();
 
-        bool Disabled { get; }
+		bool Checked { get; set; }
+		bool Disabled { get; }
 
         string GetAttribute(string attributeName);
 

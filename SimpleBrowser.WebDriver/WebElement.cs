@@ -63,11 +63,11 @@ namespace SimpleBrowser.WebDriver
             get {
                 if (_my.XElement.Name == "option")
                 {
-                    return _my.XElement.GetAttribute("selected") != null;
+					return _my.Checked;
                 }
 				if (_my.XElement.Name == "input")
 				{
-					return _my.XElement.GetAttribute("checked") != null;
+					return _my.Checked;
 				}
 				return false;
             }

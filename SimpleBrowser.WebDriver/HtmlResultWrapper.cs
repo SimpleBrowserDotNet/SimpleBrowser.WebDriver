@@ -100,6 +100,19 @@ namespace SimpleBrowser.WebDriver
             get { return _htmlResult.XElement; }
         }
 
-        #endregion
-    }
+
+		public bool Checked
+		{
+			get
+			{
+				return _htmlResult.Checked;
+			}
+			set
+			{
+				_htmlResult.Checked = value;
+			}
+		}
+
+		#endregion
+	}
 }
