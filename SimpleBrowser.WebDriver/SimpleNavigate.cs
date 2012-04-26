@@ -8,15 +8,15 @@ namespace SimpleBrowser.WebDriver
 {
     public class SimpleNavigate : INavigation
     {
-        private readonly SimpleBrowserDriver _my;
+        private readonly IBrowser _browser;
 
         private readonly Stack<string> _urlHistory = new Stack<string>();
 
         private string _currentUrl; 
 
-        public SimpleNavigate(SimpleBrowserDriver driver)
+        public SimpleNavigate(IBrowser browser)
         {
-            _my = driver;
+            _browser = browser;
         }
 
 
@@ -25,7 +25,7 @@ namespace SimpleBrowser.WebDriver
         public void Back()
         {
             _currentUrl = _urlHistory.Pop();
-            _my.Url = _currentUrl;
+            NavigateToCurrent();
         }
 
         public void Forward()
@@ -43,12 +43,17 @@ namespace SimpleBrowser.WebDriver
             if (_currentUrl != null) _urlHistory.Push(_currentUrl);
             _currentUrl = url;
 
-            _my.Url = _currentUrl;
+            NavigateToCurrent();
         }
 
         public void Refresh()
         {
-            _my.Url = _currentUrl;
+            NavigateToCurrent();
+        }
+
+        private void NavigateToCurrent()
+        {
+            _browser.Navigate(_currentUrl);
         }
 
         #endregion
