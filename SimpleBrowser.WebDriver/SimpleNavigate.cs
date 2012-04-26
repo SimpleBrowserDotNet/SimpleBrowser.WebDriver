@@ -10,9 +10,9 @@ namespace SimpleBrowser.WebDriver
     {
         private readonly IBrowser _browser;
 
-        private readonly Stack<string> _urlHistory = new Stack<string>();
+        private readonly List<string> _urlCache = new List<string>();
 
-        private string _currentUrl; 
+        private int _currentIndex = -1;
 
         public SimpleNavigate(IBrowser browser)
         {
@@ -24,25 +24,27 @@ namespace SimpleBrowser.WebDriver
 
         public void Back()
         {
-            _currentUrl = _urlHistory.Pop();
+            GoBack();
             NavigateToCurrent();
         }
 
         public void Forward()
         {
-            throw new NotImplementedException();
+            if (_currentIndex >= _urlCache.Count - 1) return;
+            GoForward();
+            NavigateToCurrent();
         }
 
         public void GoToUrl(Uri url)
         {
+            if (url == null) return;
             GoToUrl(url.ToString());
         }
 
         public void GoToUrl(string url)
         {
-            if (_currentUrl != null) _urlHistory.Push(_currentUrl);
-            _currentUrl = url;
-
+            if (url == null) return;
+            PushUrlToHistory(url);
             NavigateToCurrent();
         }
 
@@ -51,9 +53,40 @@ namespace SimpleBrowser.WebDriver
             NavigateToCurrent();
         }
 
+        #endregion
+
+        #region Private methods
+
+        private string CurrentUrl
+        {
+            get { return _urlCache[_currentIndex]; }
+        }
+
+        private void PushUrlToHistory(string url)
+        {
+            if (_currentIndex != _urlCache.Count - 1)
+            {
+                var countToRemove = _urlCache.Count - 1 - _currentIndex;
+                _urlCache.RemoveRange(_currentIndex+1, countToRemove);
+            }
+            _urlCache.Add(url);
+            ++_currentIndex;
+        }
+
+        private void GoBack()
+        {
+            if (_currentIndex > 0) --_currentIndex;
+        }
+
+        private void GoForward()
+        {
+            if (_currentIndex != -1) ++_currentIndex;
+        }
+
         private void NavigateToCurrent()
         {
-            _browser.Navigate(_currentUrl);
+            if (_currentIndex != -1)
+                _browser.Navigate(CurrentUrl);
         }
 
         #endregion
