@@ -40,7 +40,7 @@ namespace SimpleBrowser.WebDriver
 
         public INavigation Navigate()
         {
-            return new SimpleNavigate(this);
+            return new SimpleNavigate(_my);
         }
 
         public string PageSource
