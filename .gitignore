@@ -3,6 +3,7 @@ obj
 _Resharper.*
 *.suo
 *.user
+*.nupkg
 packages/SimpleBrowser.*
 packages/DotNetZip.*
 packages/Moq.*
