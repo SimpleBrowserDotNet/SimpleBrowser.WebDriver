@@ -3,3 +3,11 @@ obj
 _Resharper.*
 *.suo
 *.user
+packages/SimpleBrowser.*
+packages/DotNetZip.*
+packages/Moq.*
+packages/NUnit.*
+packages/Newtonsoft.*
+packages/Selenium.*
+packages/Castle.*
+packages/Selenium.*
