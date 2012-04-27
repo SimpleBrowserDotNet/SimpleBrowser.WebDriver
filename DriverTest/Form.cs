@@ -25,7 +25,7 @@ namespace DriverTest
 			b.RequestLogged += (browser, logged) =>
 			{
 				Console.WriteLine("Request logged: " + logged.Url.ToString());
-				lastRequest = logged.Url.ToString();
+				lastRequest = logged.Url.AbsoluteUri;
 			};
 			link.Click();
 			Assert.That(lastRequest.Contains("www.google.com/search"), "Link has resulted in unexpected request");
@@ -116,6 +116,17 @@ namespace DriverTest
 		}
 
 		[Test]
+		public void UsingTextareas()
+		{
+			Browser b = new Browser();
+			b.SetContent(Helper.GetFromResources("DriverTest.SimpleForm.htm"));
+			IWebDriver driver = new SimpleBrowserDriver(new BrowserWrapper(b));
+			var textbox = driver.FindElement(By.Name("textarea_a"));
+			Assert.That(textbox != null);
+			Assert.That(textbox.Text.Contains("\n"), "Textarea should not make line breaks coalesce into space");
+		}
+
+		[Test]
 		public void UsingHtml5Inputs()
 		{
 			Browser b = new Browser();
@@ -131,7 +142,7 @@ namespace DriverTest
 			b.RequestLogged += (browser, logged) =>
 			{
 				Console.WriteLine("Request logged: " + logged.Url.ToString());
-				lastRequest = logged.Url.ToString();
+				lastRequest = logged.Url.AbsoluteUri;
 			};
 			form.Submit();
 			Assert.That(lastRequest.Contains("colorBox=ff0000"), "Color box not posted correctly");
@@ -148,13 +159,13 @@ namespace DriverTest
 			b.RequestLogged += (browser, logged) =>
 				{
 					Console.WriteLine("Request logged: " + logged.Url.ToString());
-					lastRequest = logged.Url.ToString();
+					lastRequest = logged.Url.AbsoluteUri;
 				};
 			form.Submit();
 			Assert.That(lastRequest.Contains("radios=first"), "Radio buttons not in correct state");
 			// NOTE: this line seems wrong: the line breaks in a textarea should remain preserved. But, XML parsing will remove this.
 			//       What are the actual rules around this
-			Assert.That(lastRequest.Contains("textarea_a=This+is+a+full+text+part+with"), "Textarea not posted correctly");
+			Assert.That(lastRequest.Contains("textarea_a=This+is+a+full+text+part%0d%0awith"), "Textarea not posted correctly");
 
 			var firstRadio = driver.FindElement(By.Id("first-radio"));
 			var firstRadioLabel = driver.FindElement(By.CssSelector("label[for=first-radio]"));
@@ -195,7 +206,7 @@ namespace DriverTest
 			Assert.That(lastRequest.AllKeys.Contains("radios") && lastRequest["radios"].Contains("first"), "Radio buttons not in correct state");
 			// NOTE: this line seems wrong: the line breaks in a textarea should remain preserved. But, XML parsing will remove this.
 			//       What are the actual rules around this
-			Assert.That(lastRequest.AllKeys.Contains("textarea_a") && lastRequest["textarea_a"].Contains("This is a full text part with"), "Textarea not posted correctly");
+			Assert.That(lastRequest.AllKeys.Contains("textarea_a") && lastRequest["textarea_a"].Contains("This is a full text part\r\nwith"), "Textarea not posted correctly");
 
 			var firstRadio = driver.FindElement(By.Id("first-radio"));
 			var firstRadioLabel = driver.FindElement(By.CssSelector("label[for=first-radio]"));
