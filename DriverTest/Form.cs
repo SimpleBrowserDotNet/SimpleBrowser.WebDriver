@@ -28,7 +28,8 @@ namespace DriverTest
 				lastRequest = logged.Url.AbsoluteUri;
 			};
 			link.Click();
-			Assert.That(lastRequest.Contains("www.google.com/search"), "Link has resulted in unexpected request");
+			// this URL is intentionally non-existing. After the error we continue working on the same page
+			Assert.That(lastRequest.Contains("wwwgooglecom/search"), "Link has resulted in unexpected request");
 
 			b.SetContent(Helper.GetFromResources("DriverTest.SimpleForm.htm"));
 			link = driver.FindElement(By.CssSelector("a.link-relative"));
