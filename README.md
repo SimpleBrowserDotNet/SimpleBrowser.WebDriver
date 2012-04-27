@@ -9,6 +9,12 @@ It is usefull to do tests with real browsers, but for performance reasons it can
 
 SimpleBrowser.WebDriver allows C# developers to do selenium testing fast and in memory.
 
+###Installation
+The easiest way to get started is:
+
+    Install-Package SimpleBrowser.WebDriver
+
+
 ###Sample:
 
     IWebDriver browser = new SimpleBrowserDriver();
