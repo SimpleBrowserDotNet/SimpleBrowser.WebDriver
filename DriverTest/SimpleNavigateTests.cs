@@ -4,180 +4,163 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using SimpleBrowser.WebDriver;
+using SimpleBrowser;
 
 namespace DriverTest
 {
     [TestFixture]
     public class SimpleNavigateTests
     {
-        public class MockedBrowser : IBrowser
-        {
-            public string GetCurrentHtml = null;
-            public Uri GetUrl = null;
-            public bool HasCalledFind = false;
-            public bool HasCalledNavigate = false;
-            public int HasCalledNavigateTimes = 0;
-            public string NavigateValue = null;
-            public string FindQuery = null;
-            public object FindParam = null;
 
-            public string CurrentHtml
-            {
-                get { return GetCurrentHtml; }
-            }
+		private static Helper.BrowserWrapperWithLastRequest GetMockedBrowser()
+		{
+			Helper.BrowserWrapperWithLastRequest b = new Helper.BrowserWrapperWithLastRequest(new Browser( Helper.GetAllways200RequestMocker()));
+			return b;
+		}
 
-            public Uri Url
-            {
-                get { return GetUrl; }
-            }
 
-            public IHtmlResult Find(string query, object param)
-            {
-                HasCalledFind = true;
-                FindQuery = query;
-                FindParam = param;
-                return null;
-            }
+		[Test]
+		public void NavigatingToUrlShouldDoIt()
+		{
+			var b = GetMockedBrowser();
+			var dr = new SimpleBrowserDriver((IBrowser)b);
+			var givenUrl = "http://www.a.com/";
 
-            public void Navigate(string value)
-            {
-                HasCalledNavigate = true;
-                HasCalledNavigateTimes++;
-                NavigateValue = value;
-            }
-        }
+			dr.Navigate().GoToUrl(givenUrl);
 
-        private SimpleNavigate _simpleNavigate;
+			Assert.AreEqual(dr.Url, givenUrl);
+			Assert.AreEqual(b.LastRequest.Url.ToString(), givenUrl);
+		}
 
-        private MockedBrowser _mockedBrowser;
+		[Test]
+		public void NavigatingBackwardsAfterSecondShouldNavigateToFirstUrl()
+		{
+			var b = GetMockedBrowser();
+			var dr = new SimpleBrowserDriver((IBrowser)b);
+			string[] givenUrls = { "http://www.a.com", "http://www.b.com" };
+			foreach (string url in givenUrls)
+			{
+				dr.Navigate().GoToUrl(url);
+			}
 
-        [SetUp]
-        public void SetUp()
-        {
-            _mockedBrowser = new MockedBrowser();
+			dr.Navigate().Back();
 
-            _simpleNavigate = new SimpleNavigate(_mockedBrowser);
-        }
+			Assert.That(new Uri(dr.Url), Is.EqualTo(new Uri(givenUrls[0])));
+		}
 
-        [Test]
-        public void NavigatingToUrlShouldDoIt()
-        {
-            var givenUrl = "http://www.a.com/";
+		[Test]
+		public void NavigatingBackAndForthShouldNavigateToSecondUrl()
+		{
+			var b = GetMockedBrowser();
+			var dr = new SimpleBrowserDriver((IBrowser)b);
+			string[] givenUrls = { "http://www.a.com", "http://www.b.com" };
+			foreach (string url in givenUrls)
+			{
+				dr.Navigate().GoToUrl(url);
+			}
 
-            _simpleNavigate.GoToUrl(givenUrl);
+			dr.Navigate().Back();
+			dr.Navigate().Forward();
 
-            Assert.That(_mockedBrowser.HasCalledNavigate, Is.True);
-            Assert.That(_mockedBrowser.NavigateValue, Is.EqualTo(givenUrl));
-        }
+			Assert.That(new Uri(dr.Url), Is.EqualTo(new Uri(givenUrls[1])));
+		}
 
-        [Test]
-        public void NavigatingBackwardsAfterSecondShouldNavigateToFirstUrl()
-        {
-            string[] givenUrls = {"http://www.a.com", "http://www.b.com"};
-            foreach (string url in givenUrls)
-            {
-                _simpleNavigate.GoToUrl(url);
-            }
-            
-            _simpleNavigate.Back();
+		[Test]
+		public void GoingBackInTimeShouldntThrowExceptions()
+		{
+			var b = GetMockedBrowser();
+			var dr = new SimpleBrowserDriver((IBrowser)b);
+			var givenUrl = "http://www.a.com/";
 
-            Assert.That(_mockedBrowser.NavigateValue, Is.EqualTo(givenUrls[0]));
-        }
+			dr.Navigate().GoToUrl(givenUrl);
+			dr.Navigate().Back();
+			dr.Navigate().Back();
+		}
 
-        [Test]
-        public void NavigatingBackAndForthShouldNavigateToSecondUrl()
-        {
-            string[] givenUrls = { "http://www.a.com", "http://www.b.com" };
-            foreach (string url in givenUrls)
-            {
-                _simpleNavigate.GoToUrl(url);
-            }
+		[Test]
+		public void GoingBackInitiallyShouldntCallNavigate()
+		{
+			var b = GetMockedBrowser();
+			var dr = new SimpleBrowserDriver((IBrowser)b);
+			dr.Navigate().Back();
 
-            _simpleNavigate.Back();
-            _simpleNavigate.Forward();
+			Assert.IsNull(b.LastRequest);
+		}
 
-            Assert.That(_mockedBrowser.NavigateValue, Is.EqualTo(givenUrls[1]));
-        }
+		[Test]
+		public void GoingForwardInitiallyShouldntCallNavigate()
+		{
+			var b = GetMockedBrowser();
+			var dr = new SimpleBrowserDriver((IBrowser)b);
+			dr.Navigate().Forward();
 
-        [Test]
-        public void GoingBackInTimeShouldntThrowExceptions()
-        {
-            var givenUrl = "http://www.a.com/";
+			Assert.IsNull(b.LastRequest);
+		}
 
-            _simpleNavigate.GoToUrl(givenUrl);
-            _simpleNavigate.Back();
-            _simpleNavigate.Back();
-        }
+		[Test]
+		public void GoingToNullStringShouldntCallNavigate()
+		{
+			var b = GetMockedBrowser();
+			var dr = new SimpleBrowserDriver((IBrowser)b);
+			dr.Navigate().GoToUrl((string)null);
 
-        [Test]
-        public void GoingBackInitiallyShouldntCallNavigate()
-        {
-            _simpleNavigate.Back();
+			Assert.IsNull(b.LastRequest);
+		}
 
-            Assert.That(_mockedBrowser.HasCalledNavigate, Is.False);
-        }
 
-        [Test]
-        public void GoingForwardInitiallyShouldntCallNavigate()
-        {
-            _simpleNavigate.Forward();
+		[Test]
+		public void GoingToNullUriShouldntCallNavigate()
+		{
+			var b = GetMockedBrowser();
+			var dr = new SimpleBrowserDriver((IBrowser)b);
+			dr.Navigate().GoToUrl((Uri)null);
 
-            Assert.That(_mockedBrowser.HasCalledNavigate, Is.False);
-        }
+			Assert.IsNull(b.LastRequest);
+		}
 
-        [Test]
-        public void GoingToNullStringShouldntCallNavigate()
-        {
-            _simpleNavigate.GoToUrl(null as string);
+		[Test]
+		public void CallingRefreshShouldNavigateAgainToSame()
+		{
+			var b = GetMockedBrowser();
+			var dr = new SimpleBrowserDriver((IBrowser)b);
+			var givenUrl = "http://www.a.com/";
+			dr.Navigate().GoToUrl(givenUrl);
+			b.LastRequest = null;
 
-            Assert.That(_mockedBrowser.HasCalledNavigate, Is.False);
-        }
+			dr.Navigate().Refresh();
 
-        [Test]
-        public void GoingToNullUriShouldntCallNavigate()
-        {
-            _simpleNavigate.GoToUrl(null as Uri);
+			Assert.NotNull(b.LastRequest);
+		}
 
-            Assert.That(_mockedBrowser.HasCalledNavigate, Is.False);
-        }
+		[Test]
+		public void GoingForwardInTimeShouldntCallNavigateAgain()
+		{
+			var b = GetMockedBrowser();
+			var dr = new SimpleBrowserDriver((IBrowser)b);
+			var givenUrl = "http://www.a.com/";
+			dr.Navigate().GoToUrl(givenUrl);
+			b.LastRequest = null;
+			dr.Navigate().Forward();
 
-        [Test]
-        public void CallingRefreshShouldNavigateAgainToSame()
-        {
-            var givenUrl = "http://www.a.com/";
-            _simpleNavigate.GoToUrl(givenUrl);
+			Assert.IsNull(b.LastRequest);
+		}
 
-            _simpleNavigate.Refresh();
-            
-            Assert.That(_mockedBrowser.HasCalledNavigate, Is.True);
-            Assert.That(_mockedBrowser.HasCalledNavigateTimes, Is.EqualTo(2));
-        }
+		[Test]
+		public void GoingBackAndForthWithNewUrlShouldCallNavigateWithNewUrl()
+		{
+			var b = GetMockedBrowser();
+			var dr = new SimpleBrowserDriver((IBrowser)b);
+			string[] givenUrls = { "http://www.a.com", "http://www.b.com" };
+			foreach (string url in givenUrls)
+			{
+				dr.Navigate().GoToUrl(url);
+			}
+			dr.Navigate().Back();
+			string newUrl = "http://www.c.com";
 
-        [Test]
-        public void GoingForwardInTimeShouldntCallNavigateAgain()
-        {
-            var givenUrl = "http://www.a.com/";
-            _simpleNavigate.GoToUrl(givenUrl);
+			dr.Navigate().GoToUrl(newUrl);
 
-            _simpleNavigate.Forward();
-
-            Assert.That(_mockedBrowser.HasCalledNavigateTimes, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void GoingBackAndForthWithNewUrlShouldCallNavigateWithNewUrl()
-        {
-            string[] givenUrls = { "http://www.a.com", "http://www.b.com" };
-            foreach (string url in givenUrls)
-            {
-                _simpleNavigate.GoToUrl(url);
-            }
-            _simpleNavigate.Back();
-            string newUrl = "http://www.c.com";
-
-            _simpleNavigate.GoToUrl(newUrl);
-
-            Assert.That(_mockedBrowser.NavigateValue, Is.EqualTo(newUrl));
-        }
+			Assert.That(b.LastRequest.Url, Is.EqualTo(new Uri(newUrl)));
+		}
     }
 }

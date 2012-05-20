@@ -24,15 +24,12 @@ namespace SimpleBrowser.WebDriver
 
         public void Back()
         {
-            GoBack();
-            NavigateToCurrent();
+			_browser.NavigateBack();
         }
 
         public void Forward()
         {
-            if (_currentIndex >= _urlCache.Count - 1) return;
-            GoForward();
-            NavigateToCurrent();
+			_browser.NavigateForward();
         }
 
         public void GoToUrl(Uri url)
@@ -44,51 +41,17 @@ namespace SimpleBrowser.WebDriver
         public void GoToUrl(string url)
         {
             if (url == null) return;
-            PushUrlToHistory(url);
-            NavigateToCurrent();
+			_browser.Navigate(url);
         }
 
         public void Refresh()
         {
-            NavigateToCurrent();
+			var url = _browser.Url;
+			_browser.NavigateBack();
+			_browser.Navigate(url.ToString());
         }
 
         #endregion
 
-        #region Private methods
-
-        private string CurrentUrl
-        {
-            get { return _urlCache[_currentIndex]; }
-        }
-
-        private void PushUrlToHistory(string url)
-        {
-            if (_currentIndex != _urlCache.Count - 1)
-            {
-                var countToRemove = _urlCache.Count - 1 - _currentIndex;
-                _urlCache.RemoveRange(_currentIndex+1, countToRemove);
-            }
-            _urlCache.Add(url);
-            ++_currentIndex;
-        }
-
-        private void GoBack()
-        {
-            if (_currentIndex > 0) --_currentIndex;
-        }
-
-        private void GoForward()
-        {
-            if (_currentIndex != -1) ++_currentIndex;
-        }
-
-        private void NavigateToCurrent()
-        {
-            if (_currentIndex != -1)
-                _browser.Navigate(CurrentUrl);
-        }
-
-        #endregion
     }
 }

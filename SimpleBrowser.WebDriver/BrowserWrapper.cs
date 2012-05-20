@@ -11,11 +11,14 @@ namespace SimpleBrowser.WebDriver
         public BrowserWrapper()
         {
             _my = new Browser();
-        }
+			_my.RequestLogged += new Action<Browser, HttpRequestLog>(HandleRequestLogged);
+		}
         public BrowserWrapper(Browser b)
         {
             _my = b;
+			_my.RequestLogged += new Action<Browser, HttpRequestLog>(HandleRequestLogged);
         }
+
 
         #region IBrowser Members
 
@@ -39,6 +42,27 @@ namespace SimpleBrowser.WebDriver
             _my.Navigate(value);
         }
 
-        #endregion
-    }
+		public void NavigateBack()
+		{
+			_my.NavigateBack();
+		}
+
+		public void NavigateForward()
+		{
+			_my.NavigateForward();
+		}
+
+		#endregion
+
+		public event Action<Browser, HttpRequestLog> RequestLogged;
+		private void HandleRequestLogged(Browser b, HttpRequestLog req)
+		{
+			if (this.RequestLogged != null)
+			{
+				this.RequestLogged(b, req);
+			}
+		}
+
+	}
 }
+
