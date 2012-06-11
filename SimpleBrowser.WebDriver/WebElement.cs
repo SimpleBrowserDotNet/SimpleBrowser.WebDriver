@@ -95,7 +95,7 @@ namespace SimpleBrowser.WebDriver
 
         public string Text
         {
-            get { return _my.Value; }
+            get { return _my.DecodedValue; }
         }
 
         #endregion

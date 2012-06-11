@@ -10,6 +10,7 @@ namespace SimpleBrowser.WebDriver
     {
 
         string Value { get; set; }
+		string DecodedValue { get; }
 
         int TotalElementsFound { get; }
 

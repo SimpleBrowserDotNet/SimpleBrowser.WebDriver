@@ -59,10 +59,10 @@
       <HintPath>..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="RazorHosting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleBrowser.0.5.4\lib\net40\RazorHosting.dll</HintPath>
+      <HintPath>..\packages\SimpleBrowser.0.5.7\lib\net40\RazorHosting.dll</HintPath>
     </Reference>
     <Reference Include="SimpleBrowser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleBrowser.0.5.4\lib\net40\SimpleBrowser.dll</HintPath>
+      <HintPath>..\packages\SimpleBrowser.0.5.7\lib\net40\SimpleBrowser.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -91,12 +91,6 @@
     <Compile Include="WorkInProgress.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimpleBrowser.WebDriver\SimpleBrowser.WebDriver.csproj">
-      <Project>{F456D22E-4D9B-46FB-92D2-A7EFD4540E06}</Project>
-      <Name>SimpleBrowser.WebDriver</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -111,6 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PostbackForm.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleBrowser.WebDriver\SimpleBrowser.WebDriver.csproj">
+      <Project>{F456D22E-4D9B-46FB-92D2-A7EFD4540E06}</Project>
+      <Name>SimpleBrowser.WebDriver</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

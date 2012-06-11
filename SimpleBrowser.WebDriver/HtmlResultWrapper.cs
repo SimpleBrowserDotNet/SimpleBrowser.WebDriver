@@ -21,8 +21,31 @@ namespace SimpleBrowser.WebDriver
             get{return _htmlResult.Value;}
             set{_htmlResult.Value = value;}
         }
+		public string DecodedValue
+		{
+			get { return _htmlResult.DecodedValue; }
+		}
 
-        public int TotalElementsFound
+
+		public System.Xml.Linq.XElement XElement
+		{
+			get { return _htmlResult.XElement; }
+		}
+
+
+		public bool Checked
+		{
+			get
+			{
+				return _htmlResult.Checked;
+			}
+			set
+			{
+				_htmlResult.Checked = value;
+			}
+		}
+		
+		public int TotalElementsFound
         {
             get { return _htmlResult.TotalElementsFound; }
         }
@@ -52,10 +75,6 @@ namespace SimpleBrowser.WebDriver
         {
             _htmlResult.SubmitForm();
         }
-
-        #endregion
-
-        #region IHtmlResult Members
 
 
         public IHtmlResult Select(string query)
@@ -92,27 +111,5 @@ namespace SimpleBrowser.WebDriver
         #endregion
 
 
-        #region IHtmlResult Members
-
-
-        public System.Xml.Linq.XElement XElement
-        {
-            get { return _htmlResult.XElement; }
-        }
-
-
-		public bool Checked
-		{
-			get
-			{
-				return _htmlResult.Checked;
-			}
-			set
-			{
-				_htmlResult.Checked = value;
-			}
-		}
-
-		#endregion
 	}
 }
