@@ -9,6 +9,7 @@ using Moq;
 using System.Net;
 using SimpleBrowser.WebDriver;
 using SimpleBrowser;
+using System.Text.RegularExpressions;
 
 namespace DriverTest
 {
@@ -29,17 +30,31 @@ namespace DriverTest
 		/// Returns a mocked request instance that will just return OK for any request and have an empty HTML document as its result
 		/// </summary>
 		/// <returns></returns>
-		internal static IWebRequestFactory GetAllways200RequestMocker()
+		internal static IWebRequestFactory GetAllways200RequestMocker(IList<Tuple<string, string>> responses = null)
 		{
-			return new Always200RequestMocker();
+			return new Always200RequestMocker(responses);
 		}
 		class Always200RequestMocker : IWebRequestFactory
 		{
-			public Always200RequestMocker()
+			public Always200RequestMocker(IList<Tuple<string, string>> responses = null)
 			{
-				ResponseContent = "";
+				if (responses != null)
+				{
+					foreach (var item in responses)
+					{
+						_responses.Add(new Tuple<Regex, string>(
+							new Regex(item.Item1),
+							item.Item2
+							));
+					}
+				}
 			}
-			public string ResponseContent { get; set; }
+			private List<Tuple<Regex, string>> _responses = new List<Tuple<Regex, string>>();
+			public string ResponseContent(Uri url)
+			{
+				string html = _responses.FirstOrDefault(t => t.Item1.IsMatch(url.AbsolutePath)).Item2;
+				return html ?? "";
+			}
 			#region IWebRequestFactory Members
 
 			public IHttpWebRequest GetWebRequest(Uri url)
@@ -53,7 +68,7 @@ namespace DriverTest
 						mockResponse.SetupAllProperties();
 						mockResponse.SetupProperty(m => m.Headers, new WebHeaderCollection());
 
-						byte[] responseContent = Encoding.UTF8.GetBytes(this.ResponseContent);
+						byte[] responseContent = Encoding.UTF8.GetBytes(this.ResponseContent(url));
 						mockResponse.Setup(r => r.GetResponseStream()).Returns(new MemoryStream(responseContent));
 						return mockResponse.Object;
 					});

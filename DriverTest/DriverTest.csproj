@@ -59,10 +59,10 @@
       <HintPath>..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="RazorHosting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleBrowser.0.5.7\lib\net40\RazorHosting.dll</HintPath>
+      <HintPath>..\packages\SimpleBrowser.0.5.9\lib\net40\RazorHosting.dll</HintPath>
     </Reference>
     <Reference Include="SimpleBrowser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleBrowser.0.5.7\lib\net40\SimpleBrowser.dll</HintPath>
+      <HintPath>..\packages\SimpleBrowser.0.5.9\lib\net40\SimpleBrowser.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -88,6 +88,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Searching.cs" />
+    <Compile Include="WindowsAndFrames.cs" />
     <Compile Include="WorkInProgress.cs" />
   </ItemGroup>
   <ItemGroup>

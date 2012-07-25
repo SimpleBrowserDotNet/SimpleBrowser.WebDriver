@@ -48,7 +48,10 @@ namespace DriverTest
             var topStuff = driver.FindElements(By.CssSelector("*[class|=top]"));
             Assert.That(topStuff.Count == 3 , "There should be 3 elements with class starting with top-");
 
-            var h2s = driver.FindElements(By.CssSelector("h2"));
+			var issues_commentStuff = driver.FindElements(By.CssSelector(".issues_comment"));
+			Assert.That(topStuff.Count == 16, "There should be 16 elements with class issues_comment");
+
+			var h2s = driver.FindElements(By.CssSelector("h2"));
             Assert.That(h2s.Count == 8, "There should be 8 h2 elements");
 
             var titleContainingTeun = driver.FindElements(By.CssSelector("*[title*=Teun]"));

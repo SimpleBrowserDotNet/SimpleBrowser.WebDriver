@@ -52,6 +52,21 @@ namespace SimpleBrowser.WebDriver
 			_my.NavigateForward();
 		}
 
+
+
+		public string WindowHandle
+		{
+			get { return _my.WindowHandle; }
+		}
+
+		public IEnumerable<IBrowser> Browsers
+		{
+			get { return Browser.Windows.Select(b => new BrowserWrapper(b)); }
+		}
+		public IEnumerable<IBrowser> Frames
+		{
+			get { return _my.Frames.Select(b => new BrowserWrapper(b)); }
+		}
 		#endregion
 
 		public event Action<Browser, HttpRequestLog> RequestLogged;

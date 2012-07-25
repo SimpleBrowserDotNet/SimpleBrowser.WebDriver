@@ -30,7 +30,7 @@ namespace SimpleBrowser.WebDriver
 
         public string CurrentWindowHandle
         {
-            get { throw new NotImplementedException(); }
+            get { return _my.WindowHandle; }
         }
 
         public IOptions Manage()
@@ -56,7 +56,7 @@ namespace SimpleBrowser.WebDriver
 
         public ITargetLocator SwitchTo()
         {
-            throw new NotImplementedException();
+			return new SimpleTargetLocator(_my);
         }
 
         public string Title
@@ -78,7 +78,10 @@ namespace SimpleBrowser.WebDriver
 
         public System.Collections.ObjectModel.ReadOnlyCollection<string> WindowHandles
         {
-            get { throw new NotImplementedException(); }
+			get
+			{
+				return new ReadOnlyCollection<string>(_my.Browsers.Select(b => b.WindowHandle).ToList()); 
+			}
         }
 
         #endregion
