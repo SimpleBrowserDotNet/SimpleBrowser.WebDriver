@@ -9,7 +9,7 @@ namespace SimpleBrowser.WebDriver
     /// For testability we want to access the Browser object only through an interface
     /// This interface contains only the properties and methods that are actually used.
     /// </summary>
-    public interface IBrowser
+    public interface IBrowser 
     {
         string CurrentHtml{get;}
         Uri Url { get; }
@@ -20,5 +20,6 @@ namespace SimpleBrowser.WebDriver
 		string WindowHandle { get; }
 		IEnumerable<IBrowser> Browsers{get;}
 		IEnumerable<IBrowser> Frames { get; }
+		void Close();
 	}
 }

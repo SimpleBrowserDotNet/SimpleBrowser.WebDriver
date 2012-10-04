@@ -67,6 +67,10 @@ namespace SimpleBrowser.WebDriver
 		{
 			get { return _my.Frames.Select(b => new BrowserWrapper(b)); }
 		}
+		public void Close()
+		{
+			_my.Close();
+		}
 		#endregion
 
 		public event Action<Browser, HttpRequestLog> RequestLogged;

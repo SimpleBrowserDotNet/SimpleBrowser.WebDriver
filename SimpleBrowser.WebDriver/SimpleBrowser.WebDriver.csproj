@@ -44,10 +44,10 @@
       <HintPath>..\packages\Newtonsoft.Json.4.5.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RazorHosting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleBrowser.0.5.9\lib\net40\RazorHosting.dll</HintPath>
+      <HintPath>..\packages\SimpleBrowser.0.5.10\lib\net40\RazorHosting.dll</HintPath>
     </Reference>
     <Reference Include="SimpleBrowser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleBrowser.0.5.9\lib\net40\SimpleBrowser.dll</HintPath>
+      <HintPath>..\packages\SimpleBrowser.0.5.10\lib\net40\SimpleBrowser.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

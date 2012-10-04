@@ -52,8 +52,8 @@ namespace DriverTest
 			private List<Tuple<Regex, string>> _responses = new List<Tuple<Regex, string>>();
 			public string ResponseContent(Uri url)
 			{
-				string html = _responses.FirstOrDefault(t => t.Item1.IsMatch(url.AbsolutePath)).Item2;
-				return html ?? "";
+				var tup = _responses.FirstOrDefault(t => t.Item1.IsMatch(url.AbsolutePath));
+				return tup==null ?  "" : tup.Item2;
 			}
 			#region IWebRequestFactory Members
 

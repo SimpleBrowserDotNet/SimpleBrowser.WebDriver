@@ -25,7 +25,8 @@ namespace SimpleBrowser.WebDriver
 
         public void Close()
         {
-            throw new NotImplementedException();
+			_my.Close();
+			this.Dispose();
         }
 
         public string CurrentWindowHandle
@@ -112,6 +113,7 @@ namespace SimpleBrowser.WebDriver
 
         public void Dispose()
         {
+			_my.Close();
         }
 
         #endregion
