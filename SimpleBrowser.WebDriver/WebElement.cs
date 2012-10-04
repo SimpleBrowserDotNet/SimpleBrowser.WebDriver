@@ -35,7 +35,7 @@ namespace SimpleBrowser.WebDriver
 
         public bool Displayed
         {
-            get { throw new NotImplementedException(); }
+            get { return true; }
         }
 
         public bool Enabled

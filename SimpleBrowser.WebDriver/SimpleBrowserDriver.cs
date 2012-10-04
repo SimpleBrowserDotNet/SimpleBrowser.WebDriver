@@ -52,7 +52,7 @@ namespace SimpleBrowser.WebDriver
 
         public void Quit()
         {
-            throw new NotImplementedException();
+            this.Close();
         }
 
         public ITargetLocator SwitchTo()

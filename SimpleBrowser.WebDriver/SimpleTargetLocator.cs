@@ -18,17 +18,17 @@ namespace SimpleBrowser.WebDriver
 
 		public IWebElement ActiveElement()
 		{
-			throw new NotImplementedException();
+			return null;
 		}
 
 		public IAlert Alert()
 		{
-			throw new NotImplementedException();
+			return null;
 		}
 
 		public IWebDriver DefaultContent()
 		{
-			throw new NotImplementedException();
+			return null;
 		}
 
 		public IWebDriver Frame(IWebElement frameElement)
