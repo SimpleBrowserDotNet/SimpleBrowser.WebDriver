@@ -14,7 +14,10 @@ namespace DriverTest
 
 		private static Helper.BrowserWrapperWithLastRequest GetMockedBrowser()
 		{
-			Helper.BrowserWrapperWithLastRequest b = new Helper.BrowserWrapperWithLastRequest(new Browser( Helper.GetAllways200RequestMocker()));
+			Helper.BrowserWrapperWithLastRequest b = new Helper.BrowserWrapperWithLastRequest(new Browser(Helper.GetAllways200RequestMocker(new List<Tuple<string, string>>()
+				{
+					Tuple.Create("^.*", "<html></html>"),
+				})));
 			return b;
 		}
 
