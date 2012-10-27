@@ -31,7 +31,11 @@ namespace SimpleBrowser.WebDriver
         {
             return new HtmlResultWrapper(_my.Find(query, param));
         }
-
+		public IHtmlResult Select(string query)
+		{
+			return new HtmlResultWrapper(_my.Select(query));
+		}
+		
         public Uri Url
         {
             get { return _my.Url; }

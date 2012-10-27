@@ -117,6 +117,5 @@ namespace DriverTest
 			Assert.That(firstFrame.Url == "http://blah/frame");
 		}
 
-
 	}
 }

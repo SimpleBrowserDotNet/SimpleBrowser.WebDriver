@@ -14,7 +14,8 @@ namespace SimpleBrowser.WebDriver
         string CurrentHtml{get;}
         Uri Url { get; }
         IHtmlResult Find(string query, object param);
-        void Navigate(string value);
+		IHtmlResult Select(string query);
+		void Navigate(string value);
 		void NavigateBack();
 		void NavigateForward();
 		string WindowHandle { get; }
