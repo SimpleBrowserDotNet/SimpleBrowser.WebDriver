@@ -65,6 +65,7 @@ namespace DriverTest
 			IWebDriver driver = new SimpleBrowserDriver(new BrowserWrapper(b));
 			var anchor = driver.FindElement(By.TagName("a"));
 			Assert.That(anchor.TagName == "a");
+
 			Assert.Throws(typeof(NoSuchElementException), ()=>driver.FindElement(By.TagName("nosuchtag")));
 		}
 		[Test]
