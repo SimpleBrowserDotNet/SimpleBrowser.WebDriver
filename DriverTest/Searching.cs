@@ -57,7 +57,17 @@ namespace DriverTest
             var titleContainingTeun = driver.FindElements(By.CssSelector("*[title*=Teun]"));
             Assert.That(titleContainingTeun.Count == 3, "There should be 3 elements with 'Teun' somewhere in the title attrbute");
         }
-        [Test]
+		[Test]
+		public void FindingDuplicatesAndNotFinding()
+		{
+			Browser b = new Browser();
+			b.SetContent(Helper.GetFromResources("DriverTest.GitHub.htm"));
+			IWebDriver driver = new SimpleBrowserDriver(new BrowserWrapper(b));
+			var anchor = driver.FindElement(By.TagName("a"));
+			Assert.That(anchor.TagName == "a");
+			Assert.Throws(typeof(NoSuchElementException), ()=>driver.FindElement(By.TagName("nosuchtag")));
+		}
+		[Test]
         public void UsingBrowserDirect()
         {
             Browser b = new Browser();

@@ -118,7 +118,7 @@ namespace SimpleBrowser.WebDriver
 
         public IWebElement FindElementByLinkText(string linkText)
         {
-            return FindElementsByLinkText(linkText).FirstOrDefault();
+            return FindElementsByLinkText(linkText).FirstOrNoSuchElement(linkText);
         }
 
         public ReadOnlyCollection<IWebElement> FindElementsByLinkText(string linkText)
@@ -147,7 +147,7 @@ namespace SimpleBrowser.WebDriver
 
         public IWebElement FindElementByName(string name)
         {
-            return FindElementsByName(name).FirstOrDefault();
+            return FindElementsByName(name).FirstOrNoSuchElement(name);
         }
 
         public ReadOnlyCollection<IWebElement> FindElementsByName(string name)
@@ -189,7 +189,7 @@ namespace SimpleBrowser.WebDriver
 
         public IWebElement FindElementByXPath(string xpath)
         {
-            return FindElementsByXPath(xpath).FirstOrDefault();
+            return FindElementsByXPath(xpath).FirstOrNoSuchElement(xpath);
         }
 
         public ReadOnlyCollection<IWebElement> FindElementsByXPath(string xpath)
@@ -209,7 +209,7 @@ namespace SimpleBrowser.WebDriver
 
         public IWebElement FindElementByPartialLinkText(string partialLinkText)
         {
-            return FindElementsByPartialLinkText(partialLinkText).FirstOrDefault();
+            return FindElementsByPartialLinkText(partialLinkText).FirstOrNoSuchElement(partialLinkText);
         }
 
         public ReadOnlyCollection<IWebElement> FindElementsByPartialLinkText(string partialLinkText)
@@ -224,7 +224,7 @@ namespace SimpleBrowser.WebDriver
 
         public IWebElement FindElementByCssSelector(string cssSelector)
         {
-            return FindElementsByCssSelector(cssSelector).FirstOrDefault();
+            return FindElementsByCssSelector(cssSelector).FirstOrNoSuchElement(cssSelector);
         }
 
         public ReadOnlyCollection<IWebElement> FindElementsByCssSelector(string cssSelector)
@@ -234,6 +234,14 @@ namespace SimpleBrowser.WebDriver
         }
 
         #endregion
-
     }
+	static class Extensions
+	{
+		public static IWebElement FirstOrNoSuchElement(this ReadOnlyCollection<IWebElement> coll, string selectorInfo)
+		{
+			if (coll.Count > 0) return coll.First();
+			throw new NoSuchElementException("No element was found for the expression: " + selectorInfo);
+		}
+	}
+
 }

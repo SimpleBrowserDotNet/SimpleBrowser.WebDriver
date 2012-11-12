@@ -92,7 +92,8 @@ namespace SimpleBrowser.WebDriver
         public IWebElement FindElement(By by)
         {
             ISearchContext ctx = CreateSearchContext(_my);
-            return by.FindElement(ctx);
+			IWebElement result = by.FindElement(ctx);
+			return result;
         }
 
         private ISearchContext CreateSearchContext(IBrowser my)
