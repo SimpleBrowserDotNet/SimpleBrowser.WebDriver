@@ -18,16 +18,9 @@ namespace DriverTest
 			Browser b = new Browser();
 			b.Navigate("http://online3.anextour.ru/");
 
-			var menuItem = b.Select(".menu_top div");
-			Assert.That(menuItem.Value == "Турагентствам", "Russian text not found");
+			var menuItem = b.Select(".mainmenu");
+			Assert.That(menuItem.Value.Contains( "Поиск"), "Russian text not found");
 
-		}
-		[Test]
-		public void Issue9()
-		{
-			SimpleBrowserDriver driver = new SimpleBrowserDriver();
-			driver.Navigate().GoToUrl("http://www.totaljobs.com");
-			var txt = driver.FindElement(By.Id("left_0_txtKeywords"));
 		}
 
 	}
