@@ -27,16 +27,18 @@ namespace DriverTest
 					Tuple.Create("^/frame", "<html></html>"),
 					Tuple.Create("^.*", @"
 										<html>
-											<iframe src=""/frame""/><iframe src=""/frame""/>
+											<body>
+												<iframe src=""/frame""/><iframe src=""/frame""/>
+											</body>
 										</html>"),
 				}
 				)));
 			var dr = new SimpleBrowserDriver((IBrowser)b);
 			b.Navigate("http://blah/");
-			var test = dr.FindElement(By.TagName("html"));
+			var test = dr.FindElement(By.TagName("body"));
 			Assert.That(dr.WindowHandles.Count == 3);
 			var firstFrame = dr.SwitchTo().Frame(0);
-			Assert.IsNull(firstFrame.FindElement(By.TagName("iframe")));
+			Assert.Throws<NoSuchElementException>(()=>firstFrame.FindElement(By.TagName("iframe")));
 		}
 		[Test]
 		public void OpeningOtherWindows()
@@ -104,14 +106,20 @@ namespace DriverTest
 					Tuple.Create("^/frame", "<html></html>"),
 					Tuple.Create("^.*", @"
 										<html>
-											<iframe src=""/frame""/><iframe src=""/frame""/>
+											<body>
+												<iframe src=""/frame""/><iframe src=""/frame""/>
+											</body>
 										</html>"),
 				}
 				)));
 			var dr = new SimpleBrowserDriver((IBrowser)b);
 			b.Navigate("http://blah/");
-			var test = dr.FindElement(By.TagName("html"));
-			Assert.That(dr.WindowHandles.Count == 3);
+
+			//traverse document to init
+			var test = dr.FindElement(By.TagName("body"));
+			Assert.That(test.TagName == "body");
+
+			Assert.That(dr.WindowHandles.Count >= 3);
 			var iframe = dr.FindElement(By.TagName("iframe"));
 			var firstFrame = dr.SwitchTo().Frame(iframe);
 			Assert.That(firstFrame.Url == "http://blah/frame");
