@@ -12,8 +12,6 @@ namespace SimpleBrowser.WebDriver
 
         private readonly List<string> _urlCache = new List<string>();
 
-        private int _currentIndex = -1;
-
         public SimpleNavigate(IBrowser browser)
         {
             _browser = browser;

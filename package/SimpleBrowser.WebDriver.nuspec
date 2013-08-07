@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <version>0.5.12</version>
+    <version>0.5.13</version>
     <authors>Teun Duynstee</authors>
     <owners>Teun Duynstee</owners>
     <projectUrl>https://github.com/Teun/SimpleBrowser.WebDriver</projectUrl>
     <dependencies>
-        <dependency id="SimpleBrowser" version="0.5.11" />
-        <dependency id="Selenium.WebDriver" version="2.21.0" />
+        <dependency id="SimpleBrowser" version="0.5.12" />
+        <dependency id="Selenium.WebDriver" version="2.34.0" />
     </dependencies>
     <id>SimpleBrowser.WebDriver</id>
     <title>SimpleBrowser.WebDriver</title>
