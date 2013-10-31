@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <version>0.5.13</version>
+    <version>$version$</version>
     <authors>Teun Duynstee</authors>
     <owners>Teun Duynstee</owners>
     <projectUrl>https://github.com/Teun/SimpleBrowser.WebDriver</projectUrl>
@@ -16,7 +16,4 @@
     <summary></summary>
     <tags>selenium webdriver .net headless browser http cookies browserautomation automation</tags>
   </metadata>
-  <files>
-    <file src="..\SimpleBrowser.WebDriver\bin\Debug\SimpleBrowser.WebDriver.dll" target="lib\net40\SimpleBrowser.WebDriver.dll" />
-  </files>
 </package>
