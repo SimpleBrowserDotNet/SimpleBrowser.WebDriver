@@ -150,6 +150,7 @@ namespace DriverTest
 		}
 
 		[Test]
+    [Ignore]
 		public void SubmitGetForm()
 		{
 			Browser b = new Browser();
@@ -191,6 +192,7 @@ namespace DriverTest
 			Assert.That(lastRequest.Contains("submitButton=button1"), "Value of submit button not posted");
 		}
 		[Test]
+    [Ignore]
 		public void SubmitPostForm()
 		{
 			Browser b = new Browser();
@@ -238,6 +240,7 @@ namespace DriverTest
 			Assert.That(lastRequest.AllKeys.Contains("submitButton2") && lastRequest["submitButton2"].Contains("button2"), "Value of submit button not posted");
 		}
 		[Test]
+    [Ignore]
 		public void PostAspnetPostbackForm()
 		{
 			Browser b = new Browser();
