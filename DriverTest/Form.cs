@@ -202,10 +202,9 @@ namespace DriverTest
 			Assert.That(lastRequest.Contains("submitButton=button1"), "Value of submit button not posted");
 		}
 		[Test]
-    [Ignore]
 		public void SubmitPostForm()
 		{
-			Browser b = new Browser();
+			Browser b = new Browser(Helper.GetAllways200RequestMocker());
 			b.SetContent(Helper.GetFromResources("DriverTest.SimplePostForm.htm"));
 			IWebDriver driver = new SimpleBrowserDriver(new BrowserWrapper(b));
 			var form = driver.FindElement(By.CssSelector("form"));
@@ -221,18 +220,25 @@ namespace DriverTest
 			//       What are the actual rules around this
 			Assert.That(lastRequest.AllKeys.Contains("textarea_a") && lastRequest["textarea_a"].Contains("This is a full text part\r\nwith"), "Textarea not posted correctly");
 
-			var firstRadio = driver.FindElement(By.Id("first-radio"));
+      b.SetContent(Helper.GetFromResources("DriverTest.SimplePostForm.htm"));
+      form = driver.FindElement(By.CssSelector("form"));
+      var firstRadio = driver.FindElement(By.Id("first-radio"));
 			var firstRadioLabel = driver.FindElement(By.CssSelector("label[for=first-radio]"));
 			var secondRadio = driver.FindElement(By.Id("second-radio"));
 			secondRadio.Click();
 			form.Submit();
 			Assert.That(lastRequest.AllKeys.Contains("radios") && lastRequest["radios"].Contains("second"), "Radio buttons not in correct state");
 
-			firstRadioLabel.Click();
+      b.SetContent(Helper.GetFromResources("DriverTest.SimplePostForm.htm"));
+      form = driver.FindElement(By.CssSelector("form"));
+      firstRadioLabel = driver.FindElement(By.CssSelector("label[for=first-radio]"));
+      firstRadioLabel.Click();
 			form.Submit();
 			Assert.That(lastRequest.AllKeys.Contains("radios") && lastRequest["radios"].Contains("first"), "Radio buttons not in correct state");
 
-			var selectBox = driver.FindElement(By.Id("optionsList"));
+      b.SetContent(Helper.GetFromResources("DriverTest.SimplePostForm.htm"));
+      form = driver.FindElement(By.CssSelector("form"));
+      var selectBox = driver.FindElement(By.Id("optionsList"));
 			var box = new SelectElement(selectBox);
 			Assert.That(box.AllSelectedOptions.Count == 1, "First option should be selected in selectbox");
 			form.Submit();
@@ -240,12 +246,16 @@ namespace DriverTest
 
 
 			Assert.That(!lastRequest.AllKeys.Contains("submitButton"), "Value of submit button should not be posted");
-			var submitButton = driver.FindElement(By.CssSelector("input[type=submit]"));
+
+      b.SetContent(Helper.GetFromResources("DriverTest.SimplePostForm.htm"));
+      var submitButton = driver.FindElement(By.CssSelector("input[type=submit]"));
 			submitButton.Click();
 			Assert.That(lastRequest.AllKeys.Contains("submitButton") && lastRequest["submitButton"].Contains("button1"), "Value of submit button not posted");
 
 			Assert.That(!lastRequest.AllKeys.Contains("submitButton2"), "Value of submit button should not be posted");
-			submitButton = driver.FindElement(By.CssSelector("button[type=submit]"));
+
+      b.SetContent(Helper.GetFromResources("DriverTest.SimplePostForm.htm"));
+      submitButton = driver.FindElement(By.CssSelector("button[type=submit]"));
 			submitButton.Click();
 			Assert.That(lastRequest.AllKeys.Contains("submitButton2") && lastRequest["submitButton2"].Contains("button2"), "Value of submit button not posted");
 		}
