@@ -25,18 +25,5 @@ The easiest way to get started is:
     input.Submit();
     Console.WriteLine(browser.Title);
 
-###Tip: when you need to reference the binaries from a project with another version of WebDriver
-The downloadable binaries of the SimpleBrowser.WebDriver will normally be compiled against a relatively recent version of WebDriver.dll. As WebDriver.dll is a strongnamed assembly, the reference to one version is completely incompatible with another version. So if your test library is compiled against a different version of the WebDriver assemblies, you will not be able to use the downloaded binaries for the driver. You can either compile the driver from code every time and so compile it against the same version of WebDriver or you can perform this trick in config:
-
-    <configuration>
-        <runtime>
-            <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
-                <dependentAssembly>
-                    <assemblyIdentity name="WebDriver" publicKeyToken="1c2bd1631853048f" culture="neutral" />
-                    <bindingRedirect oldVersion="2.13.0.0" newVersion="2.16.0.0"/>
-                </dependentAssembly>
-            </assemblyBinding>
-       </runtime>
-    </configuration>
-
-This will cause the runtime to accept a newer version of the dll in you binaries. In this example you would have downloaded the binaries for the driver compiled against version 2.13 of WebDriver, while your tests are more up-to-date (2.16).
+###More
+[Developing with SimpleBrowser.WebDriver](https://github.com/Teun/SimpleBrowser.WebDriver/wiki/Developing-with-SimpleBrowser.WebDriver)
