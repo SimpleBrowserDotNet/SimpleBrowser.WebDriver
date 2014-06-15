@@ -5,19 +5,25 @@ using System.Text;
 using NUnit.Framework;
 using SimpleBrowser.WebDriver;
 using SimpleBrowser;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 
 namespace DriverTest
 {
-    [TestFixture]
-    public class SimpleNavigateTests
-    {
+	[TestFixture]
+	public class SimpleNavigateTests
+	{
 
 		private static Helper.BrowserWrapperWithLastRequest GetMockedBrowser()
 		{
-			Helper.BrowserWrapperWithLastRequest b = new Helper.BrowserWrapperWithLastRequest(new Browser(Helper.GetAllways200RequestMocker(new List<Tuple<string, string>>()
+			Browser.ClearWindows();
+			Browser br = new Browser(Helper.GetAllways200RequestMocker(new List<Tuple<string, string>>()
 				{
+					Tuple.Create("link\\.htm$", "<html><body>Link: <a href=\"otherpage.htm\">link</a></body></html>"),
 					Tuple.Create("^.*", "<html></html>"),
-				})));
+				}));
+			
+			Helper.BrowserWrapperWithLastRequest b = new Helper.BrowserWrapperWithLastRequest(br);
 			return b;
 		}
 
@@ -165,5 +171,31 @@ namespace DriverTest
 
 			Assert.That(b.LastRequest.Url, Is.EqualTo(new Uri(newUrl)));
 		}
-    }
+		[Test]
+		public void CtrlClick_Should_Open_Link_In_Other_Window()
+		{
+			var b = GetMockedBrowser();
+			var dr = new SimpleBrowserDriver((IBrowser)b);
+			dr.Navigate().GoToUrl("http://www.a.com/link.htm");
+			Assert.That(dr.WindowHandles.Count == 1);
+			Assert.That(dr.Url == "http://www.a.com/link.htm");
+
+			var link = dr.FindElement(By.LinkText("link"));
+			Assert.NotNull(link);
+			link.Click();
+			Assert.That(dr.Url == "http://www.a.com/otherpage.htm");
+			dr.Navigate().Back();
+			Assert.That(dr.Url == "http://www.a.com/link.htm");
+			link = dr.FindElement(By.LinkText("link"));
+
+			Actions builder = new Actions(dr);
+			builder.KeyDown(Keys.Control).Click(link).KeyUp(Keys.Control);
+			var act = builder.Build();
+			act.Perform();
+
+			Assert.That(dr.Url == "http://www.a.com/link.htm");
+			Assert.That(dr.WindowHandles.Count == 2);
+
+		}
+	}
 }

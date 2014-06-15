@@ -35,11 +35,11 @@
   <ItemGroup>
     <Reference Include="RazorHosting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SimpleBrowser.0.5.42.0\lib\net40\RazorHosting.dll</HintPath>
+      <HintPath>..\packages\SimpleBrowser.0.5.43.0\lib\net40\RazorHosting.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleBrowser, Version=0.5.42.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="SimpleBrowser, Version=0.5.43.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SimpleBrowser.0.5.42.0\lib\net40\SimpleBrowser.dll</HintPath>
+      <HintPath>..\packages\SimpleBrowser.0.5.43.0\lib\net40\SimpleBrowser.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,7 +62,10 @@
     <Compile Include="PageRoot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleBrowserDriver.cs" />
+    <Compile Include="SimpleCoordinates.cs" />
+    <Compile Include="SimpleKeyboard.cs" />
     <Compile Include="SimpleManage.cs" />
+    <Compile Include="SimpleMouse.cs" />
     <Compile Include="SimpleNavigate.cs" />
     <Compile Include="SimpleTargetLocator.cs" />
     <Compile Include="WebElement.cs" />

@@ -86,6 +86,19 @@ namespace SimpleBrowser.WebDriver
 			}
 		}
 
+
+		public KeyStateOption KeyState
+		{
+			get
+			{
+				return _my.KeyState;
+			}
+			set
+			{
+				_my.KeyState = value;
+			}
+		}
+
 	}
 }
 

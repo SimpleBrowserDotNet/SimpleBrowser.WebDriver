@@ -13,6 +13,7 @@ namespace SimpleBrowser.WebDriver
 	{
 		string CurrentHtml { get; }
 		Uri Url { get; }
+		KeyStateOption KeyState { get; set; }
 		IHtmlResult Find(string query, object param);
 		IHtmlResult Select(string query);
 		void Navigate(string value);

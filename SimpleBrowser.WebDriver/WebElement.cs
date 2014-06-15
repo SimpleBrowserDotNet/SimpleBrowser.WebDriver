@@ -13,7 +13,7 @@ using OpenQA.Selenium.Interactions.Internal;
 
 namespace SimpleBrowser.WebDriver
 {
-	public class WebElement : IWebElement, ISearchContext, IFindsByLinkText, IFindsById, IFindsByName, IFindsByTagName, IFindsByClassName, IFindsByXPath, IFindsByPartialLinkText, IFindsByCssSelector
+	public class WebElement : IWebElement, ISearchContext, IFindsByLinkText, IFindsById, IFindsByName, IFindsByTagName, IFindsByClassName, IFindsByXPath, IFindsByPartialLinkText, IFindsByCssSelector, ILocatable
 	{
 		IHtmlResult _my;
 		public WebElement(IHtmlResult about)
@@ -242,6 +242,20 @@ namespace SimpleBrowser.WebDriver
 		protected virtual IHtmlResult SelectCss(string expr)
 		{
 			return _my.Select(expr);
+		}
+
+		#endregion
+
+		#region ILocatable Members
+
+		public ICoordinates Coordinates
+		{
+			get { return new SimpleCoordinates(this); }
+		}
+
+		public Point LocationOnScreenOnceScrolledIntoView
+		{
+			get { return new Point(); }
 		}
 
 		#endregion
