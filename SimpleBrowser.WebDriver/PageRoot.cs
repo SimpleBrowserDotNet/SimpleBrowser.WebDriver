@@ -14,7 +14,7 @@ namespace SimpleBrowser.WebDriver
 			_my = browser;
 		}
 
-		protected override System.Xml.Linq.XNode GetRootNode()
+		protected override System.Xml.Linq.XNode GetXmlRootNode()
 		{
 			var re = _my.Find("html", new object());
 			return re.XElement.Parent;

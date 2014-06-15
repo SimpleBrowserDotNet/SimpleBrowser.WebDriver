@@ -195,8 +195,8 @@ namespace SimpleBrowser.WebDriver
 
 		public ReadOnlyCollection<IWebElement> FindElementsByXPath(string xpath)
 		{
-			var xpathnav = GetRootNode().XPathSelectElements(xpath);
-			var results = _my.Select("*")
+			var xpathnav = GetXmlRootNode().XPathSelectElements(xpath);
+			var results = SelectCss("*")
 					.Where(h => xpathnav.Contains(h.XElement))
 					.Select(h => new WebElement(h))
 					.Cast<IWebElement>()
@@ -204,7 +204,7 @@ namespace SimpleBrowser.WebDriver
 			return new ReadOnlyCollection<IWebElement>(results);
 		}
 
-		protected virtual XNode GetRootNode()
+		protected virtual XNode GetXmlRootNode()
 		{
 			return _my.XElement;
 		}
@@ -220,7 +220,7 @@ namespace SimpleBrowser.WebDriver
 
 		public ReadOnlyCollection<IWebElement> FindElementsByPartialLinkText(string partialLinkText)
 		{
-			var results = _my.Select("a").Where(h => h.Value.Contains(partialLinkText)).Select(r => new WebElement(r));
+			var results = SelectCss("a").Where(h => h.Value.Contains(partialLinkText)).Select(r => new WebElement(r));
 			return new ReadOnlyCollection<IWebElement>(results.Cast<IWebElement>().ToList());
 		}
 
