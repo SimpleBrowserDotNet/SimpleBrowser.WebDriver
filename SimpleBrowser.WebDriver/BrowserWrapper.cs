@@ -5,46 +5,46 @@ using System.Text;
 
 namespace SimpleBrowser.WebDriver
 {
-    public class BrowserWrapper : IBrowser
-    {
-        Browser _my;
-        public BrowserWrapper()
-        {
-            _my = new Browser();
+	public class BrowserWrapper : IBrowser
+	{
+		Browser _my;
+		public BrowserWrapper()
+		{
+			_my = new Browser();
 			_my.RequestLogged += new Action<Browser, HttpRequestLog>(HandleRequestLogged);
 		}
-        public BrowserWrapper(Browser b)
-        {
-            _my = b;
+		public BrowserWrapper(Browser b)
+		{
+			_my = b;
 			_my.RequestLogged += new Action<Browser, HttpRequestLog>(HandleRequestLogged);
-        }
+		}
 
 
-        #region IBrowser Members
+		#region IBrowser Members
 
-        public string CurrentHtml
-        {
-            get { return _my.CurrentHtml; }
-        }
+		public string CurrentHtml
+		{
+			get { return _my.CurrentHtml; }
+		}
 
-        public IHtmlResult Find(string query, object param)
-        {
-            return new HtmlResultWrapper(_my.Find(query, param));
-        }
+		public IHtmlResult Find(string query, object param)
+		{
+			return new HtmlResultWrapper(_my.Find(query, param));
+		}
 		public IHtmlResult Select(string query)
 		{
 			return new HtmlResultWrapper(_my.Select(query));
 		}
-		
-        public Uri Url
-        {
-            get { return _my.Url; }
-        }
 
-        public void Navigate(string value)
-        {
-            _my.Navigate(value);
-        }
+		public Uri Url
+		{
+			get { return _my.Url; }
+		}
+
+		public void Navigate(string value)
+		{
+			_my.Navigate(value);
+		}
 
 		public void NavigateBack()
 		{

@@ -5,22 +5,22 @@ using System.Text;
 
 namespace SimpleBrowser.WebDriver
 {
-    public class HtmlResultWrapper : IHtmlResult
-    {
-        private HtmlResult _htmlResult;
+	public class HtmlResultWrapper : IHtmlResult
+	{
+		private HtmlResult _htmlResult;
 
-        public HtmlResultWrapper(HtmlResult htmlResult)
-        {
-            this._htmlResult = htmlResult;
-        }
+		public HtmlResultWrapper(HtmlResult htmlResult)
+		{
+			this._htmlResult = htmlResult;
+		}
 
-        #region IHtmlResult Members
+		#region IHtmlResult Members
 
-        public string Value
-        {
-            get{return _htmlResult.Value;}
-            set{_htmlResult.Value = value;}
-        }
+		public string Value
+		{
+			get { return _htmlResult.Value; }
+			set { _htmlResult.Value = value; }
+		}
 		public string DecodedValue
 		{
 			get { return _htmlResult.DecodedValue; }
@@ -44,71 +44,71 @@ namespace SimpleBrowser.WebDriver
 				_htmlResult.Checked = value;
 			}
 		}
-		
+
 		public int TotalElementsFound
-        {
-            get { return _htmlResult.TotalElementsFound; }
-        }
+		{
+			get { return _htmlResult.TotalElementsFound; }
+		}
 
 
-        public void Click()
-        {
-            _htmlResult.Click();
-        }
+		public void Click()
+		{
+			_htmlResult.Click();
+		}
 
-        #endregion
+		#endregion
 
-        #region IHtmlResult Members
-
-
-        public bool Disabled
-        {
-            get { return _htmlResult.Disabled; }
-        }
-
-        public string GetAttribute(string attributeName)
-        {
-            return _htmlResult.GetAttribute(attributeName);
-        }
-
-        public void SubmitForm()
-        {
-            _htmlResult.SubmitForm();
-        }
+		#region IHtmlResult Members
 
 
-        public IHtmlResult Select(string query)
-        {
-            return new HtmlResultWrapper( _htmlResult.Select(query));
-        }
+		public bool Disabled
+		{
+			get { return _htmlResult.Disabled; }
+		}
 
-        #endregion
+		public string GetAttribute(string attributeName)
+		{
+			return _htmlResult.GetAttribute(attributeName);
+		}
 
-        #region IEnumerable<IHtmlResult> Members
+		public void SubmitForm()
+		{
+			_htmlResult.SubmitForm();
+		}
 
-        public IEnumerator<IHtmlResult> GetEnumerator()
-        {
-            var innerEnum = _htmlResult.GetEnumerator();
-            while (innerEnum.MoveNext())
-            {
-                yield return new HtmlResultWrapper( innerEnum.Current);
-            }
-        }
 
-        #endregion
+		public IHtmlResult Select(string query)
+		{
+			return new HtmlResultWrapper(_htmlResult.Select(query));
+		}
 
-        #region IEnumerable Members
+		#endregion
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            var innerEnum = _htmlResult.GetEnumerator();
-            while (innerEnum.MoveNext())
-            {
-                yield return new HtmlResultWrapper(innerEnum.Current);
-            }
-        }
+		#region IEnumerable<IHtmlResult> Members
 
-        #endregion
+		public IEnumerator<IHtmlResult> GetEnumerator()
+		{
+			var innerEnum = _htmlResult.GetEnumerator();
+			while (innerEnum.MoveNext())
+			{
+				yield return new HtmlResultWrapper(innerEnum.Current);
+			}
+		}
+
+		#endregion
+
+		#region IEnumerable Members
+
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+		{
+			var innerEnum = _htmlResult.GetEnumerator();
+			while (innerEnum.MoveNext())
+			{
+				yield return new HtmlResultWrapper(innerEnum.Current);
+			}
+		}
+
+		#endregion
 
 
 	}

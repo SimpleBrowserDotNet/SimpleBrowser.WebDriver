@@ -13,228 +13,239 @@ using OpenQA.Selenium.Interactions.Internal;
 
 namespace SimpleBrowser.WebDriver
 {
-    public class WebElement : IWebElement, ISearchContext, IFindsByLinkText, IFindsById, IFindsByName, IFindsByTagName, IFindsByClassName, IFindsByXPath, IFindsByPartialLinkText, IFindsByCssSelector
-    {
-        IHtmlResult _my;
-        public WebElement(IHtmlResult about)
-        {
-            _my = about;
-            if (_my.TotalElementsFound != 1) throw new InvalidSelectorException("Should return only one element");
-        }
-        #region IWebElement Members
+	public class WebElement : IWebElement, ISearchContext, IFindsByLinkText, IFindsById, IFindsByName, IFindsByTagName, IFindsByClassName, IFindsByXPath, IFindsByPartialLinkText, IFindsByCssSelector
+	{
+		IHtmlResult _my;
+		public WebElement(IHtmlResult about)
+		{
+			_my = about;
+			if (_my.TotalElementsFound != 1) throw new InvalidSelectorException("Should return only one element");
+		}
+		#region IWebElement Members
 
-        public void Clear()
-        {
+		public void Clear()
+		{
 			_my.Value = "";
-        }
+		}
 
-        public void Click()
-        {
-            _my.Click();
-        }
+		public void Click()
+		{
+			_my.Click();
+		}
 
-        public bool Displayed
-        {
-            get { return true; }
-        }
+		public bool Displayed
+		{
+			get { return true; }
+		}
 
-        public bool Enabled
-        {
-            get { return !_my.Disabled; }
-        }
+		public bool Enabled
+		{
+			get { return !_my.Disabled; }
+		}
 
-        public string GetAttribute(string attributeName)
-        {
-            return _my.GetAttribute(attributeName);
-        }
+		public string GetAttribute(string attributeName)
+		{
+			return _my.GetAttribute(attributeName);
+		}
 
-        public string GetCssValue(string propertyName)
-        {
-            throw new NotImplementedException();
-        }
+		public string GetCssValue(string propertyName)
+		{
+			throw new NotImplementedException();
+		}
 
-        public Point Location
-        {
-            get { throw new NotImplementedException(); }
-        }
+		public Point Location
+		{
+			get { throw new NotImplementedException(); }
+		}
 
-        public bool Selected
-        {
-            get {
-                if (_my.XElement.Name == "option")
-                {
+		public bool Selected
+		{
+			get
+			{
+				if (_my.XElement.Name == "option")
+				{
 					return _my.Checked;
-                }
+				}
 				if (_my.XElement.Name == "input")
 				{
 					return _my.Checked;
 				}
 				return false;
-            }
-        }
+			}
+		}
 
-        public void SendKeys(string text)
-        {
-            _my.Value += text;
-        }
+		public void SendKeys(string text)
+		{
+			_my.Value += text;
+		}
 
-        public Size Size
-        {
-            get { throw new NotImplementedException(); }
-        }
+		public Size Size
+		{
+			get { throw new NotImplementedException(); }
+		}
 
-        public void Submit()
-        {
-            _my.SubmitForm();
-        }
+		public void Submit()
+		{
+			_my.SubmitForm();
+		}
 
-        public string TagName
-        {
-            get { return _my.XElement.Name.LocalName; }
-        }
+		public string TagName
+		{
+			get { return _my.XElement.Name.LocalName; }
+		}
 
-        public string Text
-        {
-            get { return _my.DecodedValue; }
-        }
+		public string Text
+		{
+			get { return _my.DecodedValue; }
+		}
 
-        #endregion
+		#endregion
 
-        #region ISearchContext Members
+		#region ISearchContext Members
 
-        public IWebElement FindElement(By by)
-        {
-            return by.FindElement(this);
-        }
+		public IWebElement FindElement(By by)
+		{
+			return by.FindElement(this);
+		}
 
-        public ReadOnlyCollection<IWebElement> FindElements(By by)
-        {
-            return by.FindElements(this);
-        }
+		public ReadOnlyCollection<IWebElement> FindElements(By by)
+		{
+			return by.FindElements(this);
+		}
 
-        #endregion
+		#endregion
 
-        #region IFindsByLinkText Members
+		#region IFindsByLinkText Members
 
-        public IWebElement FindElementByLinkText(string linkText)
-        {
-            return FindElementsByLinkText(linkText).FirstOrNoSuchElement(linkText);
-        }
+		public IWebElement FindElementByLinkText(string linkText)
+		{
+			return FindElementsByLinkText(linkText).FirstOrNoSuchElement(linkText);
+		}
 
-        public ReadOnlyCollection<IWebElement> FindElementsByLinkText(string linkText)
-        {
-            var results = _my.Select("a").Where(h => h.Value == linkText).Select(r => new WebElement(r));
-            return new ReadOnlyCollection<IWebElement>(results.Cast<IWebElement>().ToList());
-        }
+		public ReadOnlyCollection<IWebElement> FindElementsByLinkText(string linkText)
+		{
+			var results = SelectCss("a").Where(h => h.Value == linkText).Select(r => new WebElement(r));
+			return new ReadOnlyCollection<IWebElement>(results.Cast<IWebElement>().ToList());
+		}
 
-        #endregion
+		#endregion
 
-        #region IFindsById Members
+		#region IFindsById Members
 
-        public IWebElement FindElementById(string id)
-        {
-            return FindElementByCssSelector(String.Format("#{0}", id));
-        }
+		public IWebElement FindElementById(string id)
+		{
+			return FindElementByCssSelector(String.Format("#{0}", id));
+		}
 
-        public ReadOnlyCollection<IWebElement> FindElementsById(string id)
-        {
-            return FindElementsByCssSelector(String.Format("#{0}", id));
-        }
+		public ReadOnlyCollection<IWebElement> FindElementsById(string id)
+		{
+			return FindElementsByCssSelector(String.Format("#{0}", id));
+		}
 
-        #endregion
+		#endregion
 
-        #region IFindsByName Members
+		#region IFindsByName Members
 
-        public IWebElement FindElementByName(string name)
-        {
-            return FindElementsByName(name).FirstOrNoSuchElement(name);
-        }
+		public IWebElement FindElementByName(string name)
+		{
+			return FindElementsByName(name).FirstOrNoSuchElement(name);
+		}
 
-        public ReadOnlyCollection<IWebElement> FindElementsByName(string name)
-        {
-            return FindElementsByCssSelector(String.Format("*[name='{0}']", name));
-        }
+		public ReadOnlyCollection<IWebElement> FindElementsByName(string name)
+		{
+			return FindElementsByCssSelector(String.Format("*[name='{0}']", name));
+		}
 
-        #endregion
+		#endregion
 
-        #region IFindsByTagName Members
+		#region IFindsByTagName Members
 
-        public IWebElement FindElementByTagName(string tagName)
-        {
-            return FindElementByCssSelector(tagName);
-        }
+		public IWebElement FindElementByTagName(string tagName)
+		{
+			return FindElementByCssSelector(tagName);
+		}
 
-        public ReadOnlyCollection<IWebElement> FindElementsByTagName(string tagName)
-        {
-            return FindElementsByCssSelector(tagName);
-        }
+		public ReadOnlyCollection<IWebElement> FindElementsByTagName(string tagName)
+		{
+			return FindElementsByCssSelector(tagName);
+		}
 
-        #endregion
+		#endregion
 
-        #region IFindsByClassName Members
+		#region IFindsByClassName Members
 
-        public IWebElement FindElementByClassName(string className)
-        {
-            return FindElementByCssSelector(String.Format(".{0}", className));
-        }
+		public IWebElement FindElementByClassName(string className)
+		{
+			return FindElementByCssSelector(String.Format(".{0}", className));
+		}
 
-        public ReadOnlyCollection<IWebElement> FindElementsByClassName(string className)
-        {
-            return FindElementsByCssSelector(String.Format(".{0}", className));
-        }
+		public ReadOnlyCollection<IWebElement> FindElementsByClassName(string className)
+		{
+			return FindElementsByCssSelector(String.Format(".{0}", className));
+		}
 
-        #endregion
+		#endregion
 
-        #region IFindsByXPath Members
+		#region IFindsByXPath Members
 
-        public IWebElement FindElementByXPath(string xpath)
-        {
-            return FindElementsByXPath(xpath).FirstOrNoSuchElement(xpath);
-        }
+		public IWebElement FindElementByXPath(string xpath)
+		{
+			return FindElementsByXPath(xpath).FirstOrNoSuchElement(xpath);
+		}
 
-        public ReadOnlyCollection<IWebElement> FindElementsByXPath(string xpath)
-        {
-            var xpathnav = _my.XElement.XPathSelectElements(xpath);
-            var results = _my.Select("*")
-                .Where(h => xpathnav.Contains(h.XElement))
-                .Select(h => new WebElement(h))
-                .Cast<IWebElement>()
-                .ToList();
-            return new ReadOnlyCollection<IWebElement>(results);
-        }
+		public ReadOnlyCollection<IWebElement> FindElementsByXPath(string xpath)
+		{
+			var xpathnav = GetXmlRootNode().XPathSelectElements(xpath);
+			var results = SelectCss("*")
+					.Where(h => xpathnav.Contains(h.XElement))
+					.Select(h => new WebElement(h))
+					.Cast<IWebElement>()
+					.ToList();
+			return new ReadOnlyCollection<IWebElement>(results);
+		}
 
-        #endregion
+		protected virtual XNode GetXmlRootNode()
+		{
+			return _my.XElement;
+		}
 
-        #region IFindsByPartialLinkText Members
+		#endregion
 
-        public IWebElement FindElementByPartialLinkText(string partialLinkText)
-        {
-            return FindElementsByPartialLinkText(partialLinkText).FirstOrNoSuchElement(partialLinkText);
-        }
+		#region IFindsByPartialLinkText Members
 
-        public ReadOnlyCollection<IWebElement> FindElementsByPartialLinkText(string partialLinkText)
-        {
-            var results = _my.Select("a").Where(h => h.Value.Contains(partialLinkText)).Select(r => new WebElement(r));
-            return new ReadOnlyCollection<IWebElement>(results.Cast<IWebElement>().ToList());
-        }
+		public IWebElement FindElementByPartialLinkText(string partialLinkText)
+		{
+			return FindElementsByPartialLinkText(partialLinkText).FirstOrNoSuchElement(partialLinkText);
+		}
 
-        #endregion
+		public ReadOnlyCollection<IWebElement> FindElementsByPartialLinkText(string partialLinkText)
+		{
+			var results = SelectCss("a").Where(h => h.Value.Contains(partialLinkText)).Select(r => new WebElement(r));
+			return new ReadOnlyCollection<IWebElement>(results.Cast<IWebElement>().ToList());
+		}
 
-        #region IFindsByCssSelector Members
+		#endregion
 
-        public IWebElement FindElementByCssSelector(string cssSelector)
-        {
-            return FindElementsByCssSelector(cssSelector).FirstOrNoSuchElement(cssSelector);
-        }
+		#region IFindsByCssSelector Members
 
-        public ReadOnlyCollection<IWebElement> FindElementsByCssSelector(string cssSelector)
-        {
-            var results = _my.Select(cssSelector).Select(r => new WebElement(r)).ToList();
-            return new ReadOnlyCollection<IWebElement>(results.Cast<IWebElement>().ToList());
-        }
+		public IWebElement FindElementByCssSelector(string cssSelector)
+		{
+			return FindElementsByCssSelector(cssSelector).FirstOrNoSuchElement(cssSelector);
+		}
 
-        #endregion
-    }
+		public ReadOnlyCollection<IWebElement> FindElementsByCssSelector(string cssSelector)
+		{
+			var r1 = SelectCss(cssSelector);
+			var results = r1.Select(r => new WebElement(r)).ToList();
+			return new ReadOnlyCollection<IWebElement>(results.Cast<IWebElement>().ToList());
+		}
+		protected virtual IHtmlResult SelectCss(string expr)
+		{
+			return _my.Select(expr);
+		}
+
+		#endregion
+	}
 	static class Extensions
 	{
 		public static IWebElement FirstOrNoSuchElement(this ReadOnlyCollection<IWebElement> coll, string selectorInfo)

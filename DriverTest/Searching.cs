@@ -19,18 +19,18 @@ namespace DriverTest
         [Test]
         public void UsingFindElements_Should_Convert_To_Correct_Jquery_Selector_Call()
         {
-            Mock<IHtmlResult> mockHtmlRoot;
-            SetupElementSearch(By.ClassName("test"), out mockHtmlRoot);
-            mockHtmlRoot.Verify(r => r.Select(".test"));
+            Mock<IBrowser> mockBrowser;
+						SetupElementSearch(By.ClassName("test"), out mockBrowser);
+						mockBrowser.Verify(r => r.Select(".test"));
 
-            SetupElementSearch(By.Id("test"), out mockHtmlRoot);
-            mockHtmlRoot.Verify(r => r.Select("#test"));
+						SetupElementSearch(By.Id("test"), out mockBrowser);
+						mockBrowser.Verify(r => r.Select("#test"));
 
-            SetupElementSearch(By.CssSelector("div.blah>myid"), out mockHtmlRoot);
-            mockHtmlRoot.Verify(r => r.Select("div.blah>myid"));
+						SetupElementSearch(By.CssSelector("div.blah>myid"), out mockBrowser);
+						mockBrowser.Verify(r => r.Select("div.blah>myid"));
 
-            SetupElementSearch(By.LinkText("test"), out mockHtmlRoot);
-            mockHtmlRoot.Verify(r => r.Select("a"));
+						SetupElementSearch(By.LinkText("test"), out mockBrowser);
+						mockBrowser.Verify(r => r.Select("a"));
         }
 		[Test]
         public void SearchingInKnownDocument()
@@ -76,30 +76,42 @@ namespace DriverTest
             var found = b.Find("div", FindBy.Class, "issues_closed");
             Assert.That(found.TotalElementsFound == 3);
         }
-        private void SetupElementSearch(By by, out Mock<IHtmlResult> mock)
-        {
-            var browserMock = new Mock<IBrowser>();
-            mock = new Mock<IHtmlResult>();
-            var foundElement = new Mock<IHtmlResult>();
-            var elmEnumerator = new Mock<IEnumerator<IHtmlResult>>();
 
-            foundElement.Setup(h => h.TotalElementsFound).Returns(1);
-            foundElement.Setup(h => h.GetEnumerator()).Returns(elmEnumerator.Object);
-            elmEnumerator.Setup(e => e.Current).Returns(foundElement.Object);
-            elmEnumerator.SetupSequence(e => e.MoveNext()).Returns(true).Returns(false);
-            mock.Setup(h => h.TotalElementsFound).Returns(1);
-            mock.Setup(h => h.Select(It.IsAny<string>())).Returns(foundElement.Object);
-            mock.Setup(root => root.Select(It.IsAny<string>())).Returns(foundElement.Object);
-            browserMock.Setup(browser => browser.Find("html", It.IsAny<object>())).Returns(mock.Object);
+		[Test]
+		public void Searching_Html_Root_Element_Should_Work()
+		{
+			Browser b = new Browser();
+			b.SetContent(Helper.GetFromResources("DriverTest.GitHub.htm"));
+			IWebDriver driver = new SimpleBrowserDriver(new BrowserWrapper(b));
 
-            string url = "http://testweb.tst";
-            SimpleBrowserDriver driver = new SimpleBrowserDriver(browserMock.Object);
-            driver.Navigate().GoToUrl(url);
-            driver.FindElements(by);
+			var rootElement = driver.FindElements(By.TagName("html"));
+			Assert.NotNull(rootElement);
+			Assert.That(rootElement.Count > 0);
+		}
 
-            browserMock.Verify(b => b.Navigate(url));
-            browserMock.Verify(b => b.Find("html", It.IsAny<object>()));
-        }
+		private void SetupElementSearch(By by, out Mock<IBrowser> browserMock)
+		{
+			browserMock = new Mock<IBrowser>();
+			var mock = new Mock<IHtmlResult>();
+			var foundElement = new Mock<IHtmlResult>();
+			var elmEnumerator = new Mock<IEnumerator<IHtmlResult>>();
+
+			foundElement.Setup(h => h.TotalElementsFound).Returns(1);
+			foundElement.Setup(h => h.GetEnumerator()).Returns(elmEnumerator.Object);
+			elmEnumerator.Setup(e => e.Current).Returns(foundElement.Object);
+			elmEnumerator.SetupSequence(e => e.MoveNext()).Returns(true).Returns(false);
+			mock.Setup(h => h.TotalElementsFound).Returns(1);
+			browserMock.Setup(browser => browser.Find("html", It.IsAny<object>())).Returns(mock.Object);
+			browserMock.Setup(browser => browser.Select(It.IsAny<string>())).Returns(foundElement.Object);
+
+			string url = "http://testweb.tst";
+			SimpleBrowserDriver driver = new SimpleBrowserDriver(browserMock.Object);
+			driver.Navigate().GoToUrl(url);
+			driver.FindElements(by);
+
+			browserMock.Verify(b => b.Navigate(url));
+			browserMock.Verify(b => b.Find("html", It.IsAny<object>()));
+		}
 
     }
 }
