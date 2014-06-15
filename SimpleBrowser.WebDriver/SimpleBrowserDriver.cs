@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 
 namespace SimpleBrowser.WebDriver
 {
-	public class SimpleBrowserDriver : IWebDriver
+	public class SimpleBrowserDriver : IWebDriver, IHasInputDevices
 	{
 		IBrowser _my;
 		public SimpleBrowserDriver()
@@ -115,6 +115,35 @@ namespace SimpleBrowser.WebDriver
 		public void Dispose()
 		{
 			_my.Close();
+		}
+
+		#endregion
+
+		#region IHasInputDevices Members
+
+		private IKeyboard _keyboard;
+		public IKeyboard Keyboard
+		{
+			get {
+				if (_keyboard == null)
+				{
+					_keyboard = new SimpleKeyboard(_my);
+				}
+				return _keyboard;
+			}
+		}
+
+		private IMouse _mouse;
+		public IMouse Mouse
+		{
+			get
+			{
+				if (_mouse == null)
+				{
+					_mouse = new SimpleMouse(_my);
+				}
+				return _mouse;
+			}
 		}
 
 		#endregion
