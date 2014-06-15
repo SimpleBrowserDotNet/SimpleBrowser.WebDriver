@@ -22,6 +22,17 @@ namespace SimpleBrowser.WebDriver
 				TryPress(KeyStateOption.Ctrl);
 				return;
 			}
+			if (keyToPress == Keys.Shift)
+			{
+				TryPress(KeyStateOption.Shift);
+				return;
+			}
+			if (keyToPress == Keys.Alt)
+			{
+				TryPress(KeyStateOption.Alt);
+				return;
+			}
+			throw new InvalidOperationException("Only the keys Ctrl, Shift and Alt are supported");
 		}
 
 
@@ -32,7 +43,17 @@ namespace SimpleBrowser.WebDriver
 				TryRelease(KeyStateOption.Ctrl);
 				return;
 			}
-
+			if (keyToRelease == Keys.Shift)
+			{
+				TryRelease(KeyStateOption.Shift);
+				return;
+			}
+			if (keyToRelease == Keys.Alt)
+			{
+				TryRelease(KeyStateOption.Alt);
+				return;
+			}
+			throw new InvalidOperationException("Only the keys Ctrl, Shift and Alt are supported");
 		}
 
 		public void SendKeys(string keySequence)
