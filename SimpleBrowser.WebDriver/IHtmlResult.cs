@@ -6,24 +6,24 @@ using System.Xml.Linq;
 
 namespace SimpleBrowser.WebDriver
 {
-    public interface IHtmlResult : IEnumerable<IHtmlResult>
-    {
+	public interface IHtmlResult : IEnumerable<IHtmlResult>
+	{
 
-        string Value { get; set; }
+		string Value { get; set; }
 		string DecodedValue { get; }
 
-        int TotalElementsFound { get; }
+		int TotalElementsFound { get; }
 
-        void Click();
+		void Click();
 
 		bool Checked { get; set; }
 		bool Disabled { get; }
 
-        string GetAttribute(string attributeName);
+		string GetAttribute(string attributeName);
 
-        void SubmitForm();
+		void SubmitForm();
 
-        IHtmlResult Select(string p);
-        XElement XElement { get; }
-    }
+		IHtmlResult Select(string p);
+		XElement XElement { get; }
+	}
 }
