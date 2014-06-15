@@ -10,113 +10,113 @@ using System.Collections.ObjectModel;
 
 namespace SimpleBrowser.WebDriver
 {
-    public class SimpleBrowserDriver : IWebDriver
-    {
-        IBrowser _my ;
-        public SimpleBrowserDriver()
-        {
-            _my = new BrowserWrapper();
-        }
-        public SimpleBrowserDriver(IBrowser browser)
-        {
-            _my = browser;
-        }
-        #region IWebDriver Members
+	public class SimpleBrowserDriver : IWebDriver
+	{
+		IBrowser _my;
+		public SimpleBrowserDriver()
+		{
+			_my = new BrowserWrapper();
+		}
+		public SimpleBrowserDriver(IBrowser browser)
+		{
+			_my = browser;
+		}
+		#region IWebDriver Members
 
-        public void Close()
-        {
+		public void Close()
+		{
 			_my.Close();
 			this.Dispose();
-        }
+		}
 
-        public string CurrentWindowHandle
-        {
-            get { return _my.WindowHandle; }
-        }
+		public string CurrentWindowHandle
+		{
+			get { return _my.WindowHandle; }
+		}
 
-        public IOptions Manage()
-        {
-            return new SimpleManage(this);
-        }
+		public IOptions Manage()
+		{
+			return new SimpleManage(this);
+		}
 
-        public INavigation Navigate()
-        {
-            return new SimpleNavigate(_my);
-        }
+		public INavigation Navigate()
+		{
+			return new SimpleNavigate(_my);
+		}
 
-        public string PageSource
-        {
-            get { return _my.CurrentHtml; }
-            set {}
-        }
+		public string PageSource
+		{
+			get { return _my.CurrentHtml; }
+			set { }
+		}
 
-        public void Quit()
-        {
-            this.Close();
-        }
+		public void Quit()
+		{
+			this.Close();
+		}
 
-        public ITargetLocator SwitchTo()
-        {
+		public ITargetLocator SwitchTo()
+		{
 			return new SimpleTargetLocator(_my);
-        }
+		}
 
-        public string Title
-        {
-            get { return _my.Find("title", new object()).Value; }
-        }
+		public string Title
+		{
+			get { return _my.Find("title", new object()).Value; }
+		}
 
-        public string Url
-        {
-            get
-            {
-                return _my.Url.ToString();
-            }
-            set
-            {
-                _my.Navigate(value);
-            }
-        }
-
-        public System.Collections.ObjectModel.ReadOnlyCollection<string> WindowHandles
-        {
+		public string Url
+		{
 			get
 			{
-				return new ReadOnlyCollection<string>(_my.Browsers.Select(b => b.WindowHandle).ToList()); 
+				return _my.Url.ToString();
 			}
-        }
+			set
+			{
+				_my.Navigate(value);
+			}
+		}
 
-        #endregion
+		public System.Collections.ObjectModel.ReadOnlyCollection<string> WindowHandles
+		{
+			get
+			{
+				return new ReadOnlyCollection<string>(_my.Browsers.Select(b => b.WindowHandle).ToList());
+			}
+		}
 
-        #region ISearchContext Members
+		#endregion
 
-        public IWebElement FindElement(By by)
-        {
-            ISearchContext ctx = CreateSearchContext(_my);
+		#region ISearchContext Members
+
+		public IWebElement FindElement(By by)
+		{
+			ISearchContext ctx = CreateSearchContext(_my);
 			IWebElement result = by.FindElement(ctx);
 			return result;
-        }
+		}
 
-        private ISearchContext CreateSearchContext(IBrowser my)
-        {
-            ISearchContext ctx = new WebElement(my.Find("html", new object()));
-            return ctx;
-        }
+		private ISearchContext CreateSearchContext(IBrowser my)
+		{
+			ISearchContext ctx = new PageRoot(my);
+			return ctx;
+		}
 
-        public ReadOnlyCollection<IWebElement> FindElements(By by)
-        {
-            ISearchContext ctx = CreateSearchContext(_my);
-            return by.FindElements(ctx);
-        }
+		public ReadOnlyCollection<IWebElement> FindElements(By by)
+		{
+			ISearchContext ctx = CreateSearchContext(_my);
+			return by.FindElements(ctx);
+		}
 
-        #endregion
+		#endregion
 
-        #region IDisposable Members
+		#region IDisposable Members
 
-        public void Dispose()
-        {
+		public void Dispose()
+		{
 			_my.Close();
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

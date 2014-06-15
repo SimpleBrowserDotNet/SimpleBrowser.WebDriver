@@ -59,6 +59,7 @@
     <Compile Include="HtmlResultWrapper.cs" />
     <Compile Include="IBrowser.cs" />
     <Compile Include="IHtmlResult.cs" />
+    <Compile Include="PageRoot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleBrowserDriver.cs" />
     <Compile Include="SimpleManage.cs" />
