@@ -50,6 +50,12 @@ namespace SimpleBrowser.WebDriver
 			set { }
 		}
 
+		public string UserAgent
+		{
+			get { return _my.UserAgent; }
+			set { _my.UserAgent = value; }
+		}
+
 		public void Quit()
 		{
 			this.Close();

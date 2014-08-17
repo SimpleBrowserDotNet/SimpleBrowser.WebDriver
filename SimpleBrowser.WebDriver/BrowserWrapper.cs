@@ -41,6 +41,12 @@ namespace SimpleBrowser.WebDriver
 			get { return _my.Url; }
 		}
 
+		public string UserAgent
+		{
+			get { return _my.UserAgent; }
+			set { _my.UserAgent = value; }
+		}
+
 		public void Navigate(string value)
 		{
 			_my.Navigate(value);
