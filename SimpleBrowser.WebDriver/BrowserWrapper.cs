@@ -25,6 +25,7 @@ namespace SimpleBrowser.WebDriver
 		public string CurrentHtml
 		{
 			get { return _my.CurrentHtml; }
+			set { _my.SetContent(value); }
 		}
 
 		public IHtmlResult Find(string query, object param)

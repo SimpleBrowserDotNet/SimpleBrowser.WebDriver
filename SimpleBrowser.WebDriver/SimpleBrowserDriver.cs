@@ -47,7 +47,7 @@ namespace SimpleBrowser.WebDriver
 		public string PageSource
 		{
 			get { return _my.CurrentHtml; }
-			set { }
+			set { _my.CurrentHtml = value; }
 		}
 
 		public void Quit()

@@ -11,7 +11,7 @@ namespace SimpleBrowser.WebDriver
 	/// </summary>
 	public interface IBrowser
 	{
-		string CurrentHtml { get; }
+		string CurrentHtml { get; set; }
 		Uri Url { get; }
 		KeyStateOption KeyState { get; set; }
 		IHtmlResult Find(string query, object param);
