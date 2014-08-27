@@ -16,8 +16,8 @@ namespace SimpleBrowser.WebDriver
 
 		protected override System.Xml.Linq.XNode GetXmlRootNode()
 		{
-			var re = _my.Find("html", new object());
-			return re.XElement.Parent;
+			var re = _my.Select("*");
+			return re.XElement.Document;
 		}
 		protected override IHtmlResult SelectCss(string expr)
 		{

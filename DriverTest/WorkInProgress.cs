@@ -12,7 +12,7 @@ namespace DriverTest
 	[TestFixture]
 	public class WorkInProgress
 	{
-		[Test]
+		[Test, Explicit]
 		public void TestRussian()
 		{
 			Browser b = new Browser();

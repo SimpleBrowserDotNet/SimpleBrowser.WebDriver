@@ -89,6 +89,16 @@ namespace DriverTest
 			Assert.That(rootElement.Count > 0);
 		}
 
+		[Test]
+		public void Repro_Issue24()
+		{
+			Browser b = new Browser();
+			b.SetContent(Helper.GetFromResources("DriverTest.GitHub.htm"));
+			IWebDriver driver = new SimpleBrowserDriver(new BrowserWrapper(b));
+
+			var by = By.XPath("//input[contains(@id, 'repos')]");
+			var tst = driver.FindElement(by);
+		}
 		private void SetupElementSearch(By by, out Mock<IBrowser> browserMock)
 		{
 			browserMock = new Mock<IBrowser>();
