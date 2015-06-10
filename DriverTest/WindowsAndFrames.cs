@@ -15,7 +15,6 @@ namespace DriverTest
 		[SetUp]
 		public void Clear()
 		{
-			Browser.ClearWindows();
 		}
 
 		[Test]

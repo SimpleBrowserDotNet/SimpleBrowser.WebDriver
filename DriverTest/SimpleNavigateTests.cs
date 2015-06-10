@@ -16,7 +16,6 @@ namespace DriverTest
 
 		private static Helper.BrowserWrapperWithLastRequest GetMockedBrowser()
 		{
-			Browser.ClearWindows();
 			Browser br = new Browser(Helper.GetAllways200RequestMocker(new List<Tuple<string, string>>()
 				{
 					Tuple.Create("link\\.htm$", "<html><body>Link: <a href=\"otherpage.htm\">link</a></body></html>"),

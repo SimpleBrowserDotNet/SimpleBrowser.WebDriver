@@ -51,10 +51,15 @@ namespace SimpleBrowser.WebDriver
 
 		public IWebDriver Window(string windowName)
 		{
-			var window = Browser.Windows.FirstOrDefault(b => b.WindowHandle == windowName);
-			return new SimpleBrowserDriver(new BrowserWrapper(window));
+			var window = _browser.Browsers.FirstOrDefault(b => b.WindowHandle == windowName);
+			return new SimpleBrowserDriver(window);
 		}
 
+        public IWebDriver ParentFrame()
+        {
+            throw new NotImplementedException();
+        }
+
 		#endregion
-	}
+    }
 }

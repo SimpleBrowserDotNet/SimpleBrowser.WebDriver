@@ -6,8 +6,8 @@
     <owners>Teun Duynstee</owners>
     <projectUrl>https://github.com/Teun/SimpleBrowser.WebDriver</projectUrl>
     <dependencies>
-        <dependency id="SimpleBrowser" version="0.5.42.0" />
-        <dependency id="Selenium.WebDriver" version="2.42.0" />
+        <dependency id="SimpleBrowser" version="0.5.46.0" />
+        <dependency id="Selenium.WebDriver" version="2.46.0" />
     </dependencies>
     <id>SimpleBrowser.WebDriver</id>
     <title>SimpleBrowser.WebDriver</title>

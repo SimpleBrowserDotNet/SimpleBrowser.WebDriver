@@ -65,7 +65,7 @@ namespace SimpleBrowser.WebDriver
 
 		public IEnumerable<IBrowser> Browsers
 		{
-			get { return Browser.Windows.Select(b => new BrowserWrapper(b)); }
+			get { return _my.Windows.Select(b => new BrowserWrapper(b)); }
 		}
 		public IEnumerable<IBrowser> Frames
 		{
