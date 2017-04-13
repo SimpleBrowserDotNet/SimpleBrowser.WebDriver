@@ -4,6 +4,7 @@ _Resharper.*
 *.suo
 *.user
 *.nupkg
+TestResults/
 packages/SimpleBrowser.*
 packages/DotNetZip.*
 packages/Moq.*

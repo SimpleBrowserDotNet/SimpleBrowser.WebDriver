@@ -19,6 +19,7 @@ namespace SimpleBrowser.WebDriver
 		void Navigate(string value);
 		void NavigateBack();
 		void NavigateForward();
+		string UserAgent { get; set; }
 		string WindowHandle { get; }
 		IEnumerable<IBrowser> Browsers { get; }
 		IEnumerable<IBrowser> Frames { get; }
