@@ -48,7 +48,12 @@ namespace SimpleBrowser.WebDriver
 			return _my.GetAttribute(attributeName);
 		}
 
-		public string GetCssValue(string propertyName)
+        public string GetProperty(string propertyName)
+        {
+            return _my.GetAttribute(propertyName);
+        }
+
+        public string GetCssValue(string propertyName)
 		{
 			throw new NotImplementedException();
 		}
@@ -244,11 +249,11 @@ namespace SimpleBrowser.WebDriver
 			return _my.Select(expr);
 		}
 
-		#endregion
+        #endregion
 
-		#region ILocatable Members
+        #region ILocatable Members
 
-		public ICoordinates Coordinates
+        public ICoordinates Coordinates
 		{
 			get { return new SimpleCoordinates(this); }
 		}

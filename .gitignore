@@ -12,3 +12,4 @@ packages/Newtonsoft.*
 packages/Selenium.*
 packages/Castle.*
 packages/Selenium.*
+/.vs

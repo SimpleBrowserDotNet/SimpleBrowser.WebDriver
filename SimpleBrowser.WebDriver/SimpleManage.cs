@@ -30,6 +30,11 @@ namespace SimpleBrowser.WebDriver
 			get { throw new NotImplementedException(); }
 		}
 
-		#endregion
-	}
+        public ILogs Logs
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        #endregion
+    }
 }
